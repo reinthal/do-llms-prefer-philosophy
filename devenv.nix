@@ -19,7 +19,7 @@
     eval $@
     popd 1>/dev/null
   '';
-  
+
   scripts.updatekeys.exec = ''
     exec-from-repo-root sops updatekeys secrets.env
   '';
@@ -27,7 +27,7 @@
   scripts.editsecrets.exec = ''
     exec-from-repo-root sops secrets.env
   '';
-  
+
   scripts.run.exec = ''
     exec-from-repo-root uv run fastapi dev src/main.py --host 0.0.0.0 --port 8000 --reload
   '';
@@ -49,14 +49,14 @@
   '';
 
   scripts.banner.exec = ''
-    echo -e "\033[32m"
-    echo "      _       _            _      _           _   "
-    echo "     | |     | |          | |    (_)         | |  "
-    echo "   __| | __ _| |_ __ _  __| |_ __ ___   _____| |_ "
-    echo "  / _\` |/ _\` | __/ _\` |/ _\` | '__| \ \ / / _ \ __|"
-    echo " | (_| | (_| | || (_| | (_| | |  | |\ V /  __/ |_ "
-    echo "  \__,_|\__,_|\__\__,_|\__,_|_|  |_| \_/ \___|\__|"
-    echo -e "\033[0m"
+  echo -e "\033[32m"
+  echo "      .___       .__  .__                                         _____                     .__    .__.__                            .__            "
+  echo "    __| _/____   |  | |  |   _____   ______ _____________   _____/ ____\___________  ______ |  |__ |__|  |   ____  __________ ______ |  |__ ___.__. "
+  echo "   / __ |/  _ \  |  | |  |  /     \ /  ___/ \____ \_  __ \_/ __ \   __\/ __ \_  __ \ \____ \|  |  \|  |  |  /  _ \/  ___/  _ \\____ \|  |  <   |  | "
+  echo "  / /_/ (  <_> ) |  |_|  |_|  Y Y  \\___ \  |  |_> >  | \/\  ___/|  | \  ___/|  | \/ |  |_> >   Y  \  |  |_(  <_> )___ (  <_> )  |_> >   Y  \___  | "
+  echo "  \____ |\____/  |____/____/__|_|  /____  > |   __/|__|    \___  >__|  \___  >__|    |   __/|___|  /__|____/\____/____  >____/|   __/|___|  / ____| "
+  echo "       \/                        \/     \/  |__|               \/          \/        |__|        \/                   \/      |__|        \/\/      "
+        echo -e "\033[0m"
   '';
 
   scripts.menu.exec = ''
@@ -87,7 +87,7 @@
     echo -e "\033[32mPre-commit hooks installed successfully!\033[0m"
   '';
   scripts.reload.exec = "direnv allow";
-  
+
   enterShell = ''
     uv --version | grep --color=auto "${pkgs.uv.version}"
     python --version | grep --color=auto "${pkgs.python312.version}"
