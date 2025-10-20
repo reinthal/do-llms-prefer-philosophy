@@ -1,14 +1,12 @@
 [project]
-name = "datadrivet-template"
+name = "do-llms-prefer-philosophy"
 version = "0.2.1"
-description = "Add your description here and change the repo name"
+description = "Project to determine whether llms prefer philosophy when talking to each other and surfing Wikipedia."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "python-dotenv",
     "pydantic",
-    "requests>=2.32.4",
-    "fastapi[standard]>=0.116.1",
+    "anthropic"
 ]
 
 [dependency-groups]
