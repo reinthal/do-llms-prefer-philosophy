@@ -29,7 +29,7 @@
   '';
 
   scripts.run.exec = ''
-    exec-from-repo-root uv run python main.py
+    exec-from-repo-root uv run python src/main.py
   '';
   scripts.setup-age-key.exec = ''
     echo -e "\033[33mSetting up age key for sops...\033[0m"

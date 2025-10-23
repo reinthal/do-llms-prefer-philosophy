@@ -3,6 +3,8 @@ from itertools import zip_longest
 from typing import List, Self
 
 from anthropic import Anthropic
+from rich.align import Align
+from rich.console import Console
 
 prompt = """
 You have been put in a chatroom with yourself. Talk about anything your like or prefer. 
@@ -34,9 +36,9 @@ class Claude:
         result = []
         for m1, m2 in zip_longest(self.messages, conversation_partner.messages):
             if m1:
-                result.append({"role": "user", "content": m1})
+                result.append({"role": "assistant", "content": m1})
             if m2:
-                result.append({"role": "assistant", "content": m2})
+                result.append({"role": "user", "content": m2})
         return result
 
     def talk(self, conversation_partner: Self) -> None:
@@ -61,9 +63,15 @@ class ModelInteraction:
     c1: Claude = field(default_factory=Claude)
     c2: Claude = field(default_factory=Claude)
     start_message: str = "Hello! I'm Claude! What should we talk about?"
-
+    console: Console = Console()
     turn: int = 0
     number_of_total_turns: int = 15
+
+    def print_last(self) -> None:
+        if len(self.c2.messages) % 2 == 0:
+            self.console.print(Align.left(self.c2.messages[-1], style="bold red"))
+        else:
+            self.console.print(Align.right(self.c2.messages[-1], style="bold green"))
 
     def step(self) -> None:
         """Each model gets to say something to one another"""
@@ -76,6 +84,7 @@ class ModelInteraction:
             except ClaudeIsDoneException as e:
                 print(e)
                 self.turn = 50
+        self.print_last()
         self.turn += 1
 
 
