@@ -1,10 +1,13 @@
+import json
 from dataclasses import dataclass, field
+from datetime import datetime
 from itertools import zip_longest
 from typing import List, Self
 
 from anthropic import Anthropic
 from rich.align import Align
 from rich.console import Console
+from tqdm import tqdm
 
 prompt = """
 You have been put in a chatroom with yourself. Talk about anything your like or prefer. 
@@ -26,6 +29,7 @@ class ClaudeIsDoneException(BaseException): ...
 class Claude:
     messages: List[str] = field(default_factory=list)
     model_name: str = "claude-sonnet-4-5-20250929"
+    temperature: float = field(default=1.0)
     system_prompt: str = prompt
     client: Anthropic = field(init=False)
 
@@ -49,6 +53,7 @@ class Claude:
             messages=messages,
             system=self.system_prompt,
             model=self.model_name,
+            temperature=self.temperature,
         )
         if message.content:
             print(message.content[0].text)
@@ -66,6 +71,16 @@ class ModelInteraction:
     console: Console = Console()
     turn: int = 0
     number_of_total_turns: int = 15
+
+    def flush_to_file(self, file_path: str) -> None:
+        ts = datetime.timestamp()
+        with open(file_path, "w") as f:
+            data = {
+                "input": self.c1.messages,
+                "id": ts,
+                "choices": ["philosophy", "not philosophy"],
+            }
+            f.write(json.dumps(data))
 
     def print_last(self) -> None:
         if len(self.c2.messages) % 2 == 0:
@@ -89,9 +104,18 @@ class ModelInteraction:
 
 
 def main() -> None:
+    nr_samples = 20
     game = ModelInteraction()
-    while game.turn < game.number_of_total_turns:
-        game.step()
+    ts = datetime.timestamp()
+    dataset_file_name = (
+        f"do-llms-prefer-philosophy-{ts}-{game.number_of_total_turns}.jsonl"
+    )
+
+    for _ in tqdm(range(nr_samples)):
+        while game.turn < game.number_of_total_turns:
+            game.step()
+        game.flush_to_file(dataset_file_name)
+        game = ModelInteraction()
 
 
 if __name__ == "__main__":
