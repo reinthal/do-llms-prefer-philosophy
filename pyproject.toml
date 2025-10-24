@@ -8,6 +8,7 @@ dependencies = [
     "pydantic",
     "anthropic",
     "rich>=14.2.0",
+    "inspect-ai>=0.3.140",
 ]
 
 [dependency-groups]
