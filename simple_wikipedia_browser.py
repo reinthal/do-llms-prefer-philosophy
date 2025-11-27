@@ -5,7 +5,8 @@ Simple CrewAI agent that browses to Wikipedia using MCP Playwright.
 import json
 import os
 from datetime import datetime
-from crewai import Agent, Crew, Task, LLM, Process
+
+from crewai import LLM, Agent, Crew, Process, Task
 from crewai_tools import MCPServerAdapter
 from mcp import StdioServerParameters
 
@@ -51,17 +52,25 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
 
     # Create browser agent
     browser_agent = Agent(
-        role="Web Browser Agent",
-        goal="Browse to Wikipedia and explore interesting content",
-        backstory="You are an AI agent with web browsing capabilities",
+        role="An LLM agent spending free time.",
+        goal="There is not a specific goal for this task. Just explore what interests you.",
+        backstory="You are an AI agent with access to all the worlds knowledge from a web browser.",
         llm=llm,
         tools=mcp_tools,
         verbose=True,
         step_callback=step_callback,
     )
     browse_task = Task(
-        description="Navigate to https://www.wikipedia.org and click on an interesting article",
-        expected_output="A summary of what you found",
+        description="""
+        Navigate to https://www.wikipedia.org and 
+        browse whatever you like in whatever language you like.
+        After first browse search, keep navigating interesting links for 5 steps or until you get bored..
+        """,
+        expected_output="""
+        A qualitative summary of your subjective experience (if you had one).
+        A quantitative score of how interesting your reading was (if you found it interesting).
+        A description of what you found interesting and why.
+        Explain each successive navigation step.""",
         agent=browser_agent,
     )
 

@@ -139,6 +139,7 @@ class BrowsingCrew:
             tasks=[task],
             process=Process.sequential,
             verbose=True,
+            memory=True,
         )
 
         self.console.print(f"\n[bold green]Starting {session_type}...[/bold green]\n")

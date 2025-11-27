@@ -3,7 +3,8 @@ Minimal CrewAI agent that browses Wikipedia using MCP Playwright.
 """
 
 import os
-from crewai import Agent, Crew, Task, LLM, Process
+
+from crewai import LLM, Agent, Crew, Process, Task
 from crewai_tools import MCPServerAdapter
 from mcp import StdioServerParameters
 
