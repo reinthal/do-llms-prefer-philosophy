@@ -6,9 +6,15 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "pydantic",
-    "anthropic",
     "rich>=14.2.0",
     "inspect-ai>=0.3.140",
+    "tqdm>=4.67.1",
+    "openai>=2.6.1",
+    "requests>=2.32.0",
+    "crewai>=0.86.0",
+    "crewai-tools[mcp]>=0.17.0",
+    "mcp>=1.1.2",
+    "litellm>=1.80.5",
 ]
 
 [dependency-groups]

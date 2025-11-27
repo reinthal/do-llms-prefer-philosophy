@@ -4,8 +4,9 @@
   inputs,
   ...
 }: {
-  packages = with pkgs; [git cmake zlib pre-commit curl wget age sops];
+  packages = with pkgs; [git cmake zlib pre-commit curl wget age sops opencode];
   dotenv.enable = true;
+  languages.javascript.enable = true;
   languages.python = {
     enable = true;
     package = pkgs.python312; # find the relevant version of python for uv to run on https://search.nixos.org
@@ -29,8 +30,76 @@
   '';
 
   scripts.run.exec = ''
-    exec-from-repo-root uv run python src/main.py
+    exec-from-repo-root uv run python src/main.py "$@"
   '';
+
+  scripts.browse.exec = ''
+    exec-from-repo-root uv run python src/crew/main.py "$@"
+  '';
+
+  scripts.eval.exec = ''
+    if [ $# -eq 0 ]; then
+      echo -e "\033[31mError: No input file or pattern specified\033[0m"
+      echo -e "\033[33mUsage: eval <file_or_glob_pattern>\033[0m"
+      echo -e "\033[33mExamples:\033[0m"
+      echo -e "  eval trajectory.jsonl"
+      echo -e "  eval '*.jsonl'"
+      echo -e "  eval 'data/**/*.jsonl'"
+      exit 1
+    fi
+
+    repo_root=$(git rev-parse --show-toplevel)
+    cd "$repo_root"
+
+    # Source secrets if available
+    if [ -f secrets.env ]; then
+      set -a
+      source <(sops -d secrets.env 2>/dev/null) || true
+      set +a
+    fi
+
+    # Check for API key
+    if [ -z "$OPENROUTER_API_KEY" ]; then
+      echo -e "\033[31mError: OPENROUTER_API_KEY not set\033[0m"
+      echo -e "\033[33mPlease set it in secrets.env or export it\033[0m"
+      exit 1
+    fi
+
+    pattern="$1"
+    files_found=0
+
+    # Expand glob pattern and process each file
+    for file in $pattern; do
+      if [ -f "$file" ]; then
+        files_found=$((files_found + 1))
+        output_file="''${file}.eval"
+
+        echo -e "\033[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+        echo -e "\033[32mEvaluating: $file\033[0m"
+        echo -e "\033[32mOutput to: $output_file\033[0m"
+        echo -e "\033[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+
+        uv run python evaluate_trajectories.py "$file" "$output_file"
+
+        if [ $? -eq 0 ]; then
+          echo -e "\033[32m✓ Successfully evaluated $file\033[0m"
+        else
+          echo -e "\033[31m✗ Failed to evaluate $file\033[0m"
+        fi
+        echo ""
+      fi
+    done
+
+    if [ $files_found -eq 0 ]; then
+      echo -e "\033[31mNo files found matching pattern: $pattern\033[0m"
+      exit 1
+    fi
+
+    echo -e "\033[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e "\033[32m✓ Evaluation complete! Processed $files_found file(s)\033[0m"
+    echo -e "\033[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+  '';
+
   scripts.setup-age-key.exec = ''
     echo -e "\033[33mSetting up age key for sops...\033[0m"
     mkdir -p ~/.config/sops/age/
@@ -66,6 +135,8 @@
     echo -e '\033[32mRepo Scripts                \033[0m'
     echo -e '\033[32m-----------                \033[0m'
     echo -e '\033[32mtype `\033[31mrun\033[32m` run Claude Self-Conversations\033[0m'
+    echo -e '\033[32mtype `\033[31mbrowse\033[32m` launch Interactive Web Browsing Crew\033[0m'
+    echo -e '\033[32mtype `\033[31meval <file|glob>\033[32m` evaluate conversation trajectories\033[0m'
     echo ""
     echo -e '\033[32mUtility\033[0m'
     echo -e '\033[32m----\033[0m'
