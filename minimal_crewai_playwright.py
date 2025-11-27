@@ -13,7 +13,7 @@ def main():
     server_params = StdioServerParameters(
         command="npx",
         args=["@playwright/mcp@latest"],
-        env={**os.environ, "PLAYWRIGHT_HEADLESS": "false"},
+        env={**os.environ, "PLAYWRIGHT_HEADLESS": "true"},  # Run headless for testing
     )
 
     # Create MCP adapter and get tools

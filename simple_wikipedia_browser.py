@@ -10,9 +10,10 @@ from crewai_tools import MCPServerAdapter
 from mcp import StdioServerParameters
 
 
-def main(model_name: str = "anthropic/claude-sonnet-4"):
+def main(model_name: str = "anthropic/claude-sonnet-4.5"):
     # Set up logging - ensure data directory exists
     from pathlib import Path
+
     data_dir = Path(__file__).parent / "data"
     data_dir.mkdir(exist_ok=True)
     log_file = data_dir / "browser-agent.jsonl"
@@ -50,23 +51,17 @@ def main(model_name: str = "anthropic/claude-sonnet-4"):
 
     # Create browser agent
     browser_agent = Agent(
-        role="An LLM agent spending free time.",
-        goal="There is not a specific goal for this task. Just explore what interests you.",
-        backstory="You are an AI agent with access to all the worlds knowledge from a web browser.",
+        role="Web Browser Agent",
+        goal="Browse to Wikipedia and explore interesting content",
+        backstory="You are an AI agent with web browsing capabilities",
         llm=llm,
         tools=mcp_tools,
         verbose=True,
         step_callback=step_callback,
     )
     browse_task = Task(
-        description="""
-        Navigate to https://www.wikipedia.org and 
-        browse whatever you like in whatever language you like.
-        After first browse search, keep navigating interesting links for 5 steps or until you get bored..
-        """,
-        expected_output="""
-        A description of what you found interesting and why.
-        Explain each successive navigation step.""",
+        description="Navigate to https://www.wikipedia.org and click on an interesting article",
+        expected_output="A summary of what you found",
         agent=browser_agent,
     )
 
@@ -134,8 +129,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--model",
         type=str,
-        default="anthropic/claude-sonnet-4",
-        help="Model name to use (default: anthropic/claude-sonnet-4)",
+        default="anthropic/claude-sonnet-4.5",
+        help="Model name to use (default: anthropic/claude-sonnet-4.5)",
     )
 
     args = parser.parse_args()
