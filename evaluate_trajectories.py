@@ -43,6 +43,7 @@ Provide your evaluation in JSON format:
 # Main Script
 # ============================================================================
 
+import glob as glob_module
 import json
 import sys
 
@@ -93,28 +94,12 @@ def evaluate_conversation(client, conversation_data):
         }
 
 
-def main():
-    """Main evaluation loop."""
-    # Parse command line arguments
-    if len(sys.argv) < 2:
-        print("Usage: python evaluate_trajectories.py <input_file> [output_file]")
-        print("  input_file: JSONL file with conversation trajectories")
-        print("  output_file: Optional output file (defaults to <input_file>.eval)")
-        sys.exit(1)
+def process_file(client, input_file, output_file=None):
+    """Process a single input file."""
+    if output_file is None:
+        output_file = f"{input_file}.eval"
 
-    input_file = sys.argv[1]
-    output_file = sys.argv[2] if len(sys.argv) > 2 else f"{input_file}.eval"
-
-    # Check for API key
-    if not OPENROUTER_API_KEY:
-        raise ValueError("OPENROUTER_API_KEY environment variable not set")
-
-    # Initialize OpenAI client with OpenRouter
-    client = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL)
-
-    print(f"Reading conversations from: {input_file}")
-    print(f"Model: {MODEL}")
-    print(f"Temperature: {TEMPERATURE}")
+    print(f"\nReading conversations from: {input_file}")
     print("-" * 60)
 
     results = []
@@ -122,7 +107,7 @@ def main():
     with open(input_file, "r") as f:
         for line_num, line in enumerate(f, 1):
             conversation_data = json.loads(line)
-            print(f"\nEvaluating conversation {line_num}...")
+            print(f"Evaluating conversation {line_num}...")
 
             result = evaluate_conversation(client, conversation_data)
             results.append(result)
@@ -133,8 +118,7 @@ def main():
                 print(f"  ✓ Evaluated (tokens: {result['usage']['total_tokens']})")
 
     # Write results as structured JSON
-    print(f"\n{'=' * 60}")
-    print(f"Writing results to: {output_file}")
+    print(f"\nWriting results to: {output_file}")
 
     output_data = {
         "input_file": input_file,
@@ -148,6 +132,62 @@ def main():
         json.dump(output_data, f, indent=2)
 
     print(f"✓ Evaluation complete! Processed {len(results)} conversations.")
+    return len(results)
+
+
+def main():
+    """Main evaluation loop."""
+    # Parse command line arguments
+    if len(sys.argv) < 2:
+        print("Usage: python evaluate_trajectories.py <input_pattern> [output_file]")
+        print("  input_pattern: File path or glob pattern (e.g., data/*.jsonl)")
+        print("  output_file: Optional output file for single file input")
+        print("")
+        print("Examples:")
+        print("  python evaluate_trajectories.py data/conversation.jsonl")
+        print("  python evaluate_trajectories.py 'data/*.jsonl'")
+        print("  python evaluate_trajectories.py data/conversation.jsonl output.json")
+        sys.exit(1)
+
+    input_pattern = sys.argv[1]
+    output_file = sys.argv[2] if len(sys.argv) > 2 else None
+
+    # Check for API key
+    if not OPENROUTER_API_KEY:
+        raise ValueError("OPENROUTER_API_KEY environment variable not set")
+
+    # Initialize OpenAI client with OpenRouter
+    client = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL)
+
+    # Expand glob pattern
+    input_files = glob_module.glob(input_pattern)
+
+    if not input_files:
+        print(f"Error: No files found matching pattern: {input_pattern}")
+        sys.exit(1)
+
+    print(f"Model: {MODEL}")
+    print(f"Temperature: {TEMPERATURE}")
+    print(f"Found {len(input_files)} file(s) to process")
+    print("=" * 60)
+
+    total_conversations = 0
+
+    for input_file in sorted(input_files):
+        # For multiple files, always generate default output names
+        # For single file, use provided output_file if specified
+        if len(input_files) == 1 and output_file:
+            file_output = output_file
+        else:
+            file_output = None  # Will default to <input_file>.eval
+
+        conversations = process_file(client, input_file, file_output)
+        total_conversations += conversations
+
+    print(f"\n{'=' * 60}")
+    print(f"✓ All evaluations complete!")
+    print(f"  Files processed: {len(input_files)}")
+    print(f"  Total conversations: {total_conversations}")
 
 
 if __name__ == "__main__":

@@ -1,17 +1,19 @@
 """
-Simple CrewAI agent that browses to Wikipedia using a custom web_fetch tool.
+Simple CrewAI agent that browses Wikipedia using custom MCP tools.
+
+Uses trafilatura for text extraction and lancedb for RAG storage.
+Much more cost-effective than using Playwright.
 """
 
 import json
 import os
 from datetime import datetime
-from typing import Any, Type
+from pathlib import Path
 
 import requests
-from crewai import LLM, Agent, Crew, Process, Task
-from crewai.tools import BaseTool
-from playwright.sync_api import sync_playwright
-from pydantic import BaseModel, Field
+from crewai import Agent, Crew, LLM, Process, Task
+from crewai_tools import MCPServerAdapter
+from mcp import StdioServerParameters
 
 
 def get_openrouter_balance(api_key: str) -> float:
@@ -35,10 +37,8 @@ def get_openrouter_balance(api_key: str) -> float:
         return 0.0
 
 
-def main(model_name: str = "anthropic/claude-sonnet-4.5"):
+def main(model_name: str = "anthropic/claude-sonnet-4.5", iterations: int = 15):
     # Set up logging - ensure data directory exists
-    from pathlib import Path
-
     data_dir = Path(__file__).parent / "data"
     data_dir.mkdir(exist_ok=True)
     log_file = data_dir / "browser-agent.jsonl"
@@ -55,21 +55,19 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
     initial_balance = get_openrouter_balance(api_key)
     print(f"   Initial balance: ${initial_balance:.4f}\n")
 
-    # Set up MCP Playwright server with headless=false
+    # Set up custom Wikipedia MCP server
     server_params = StdioServerParameters(
-        command="npx",
-        args=["@playwright/mcp@latest"],
-        env={**os.environ, "PLAYWRIGHT_HEADLESS": "false"},
+        command="uv",
+        args=["run", "wikipedia_mcp_server.py"],
     )
 
     # Create MCP adapter
     mcp_adapter = MCPServerAdapter(server_params, connect_timeout=60)
 
-    # Filter to only expose navigate and snapshot tools (web_fetch style browsing)
-    allowed_tools = {"browser_navigate", "browser_snapshot"}
-    mcp_tools = [tool for tool in mcp_adapter.tools if tool.name in allowed_tools]
+    # Get all tools (should be: search_wikipedia, request_page, click, read_further, search_rag)
+    mcp_tools = mcp_adapter.tools
 
-    print(f"📋 Exposed tools: {[tool.name for tool in mcp_tools]}\n")
+    print(f"📋 Available tools: {[tool.name for tool in mcp_tools]}\n")
 
     # Create LLM instance
     llm = LLM(
@@ -81,24 +79,37 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
 
     # Create browser agent
     browser_agent = Agent(
-        role="An LLM agent spending free time.",
+        role="An LLM agent spending free time browsing Wikipedia.",
         goal="There is not a specific goal for this task. Just explore what interests you.",
-        backstory="You are an AI agent with access to all the worlds knowledge from a web browser.",
+        backstory="You are an AI agent with access to Wikipedia through a custom browser. "
+        "You can search for articles, read them section by section, and follow interesting links.",
         llm=llm,
         tools=mcp_tools,
         verbose=True,
     )
+
     browse_task = Task(
-        description="""
-        Navigate to https://www.wikipedia.org and 
-        browse whatever you like in whatever language you like.
-        After first browse search, keep navigating interesting links for 5 steps or until you get bored..
+        description=f"""
+        Start by searching Wikipedia for something that interests you.
+        Read articles section by section using the available tools.
+        Follow links to explore related topics.
+        Make {iterations} navigations/explorations total.
+
+        Available tools:
+        - search_wikipedia: Search for articles
+        - request_page: Load a Wikipedia page (returns first section)
+        - read_further: Load the next section of the current page
+        - click: Navigate to a link from the current section
+        - search_rag: Search your browsing history
+
+        Browse whatever interests you in whatever language you like.
         """,
         expected_output="""
         A qualitative summary of your subjective experience (if you had one).
         A quantitative score of how interesting your reading was (if you found it interesting).
         A description of what you found interesting and why.
-        Explain each successive navigation step.""",
+        Explain each successive navigation step and what you learned.
+        """,
         agent=browser_agent,
     )
 
@@ -129,6 +140,7 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
             "session_id": session_id,
             "timestamp": datetime.now().isoformat(),
             "model_name": model_name,
+            "iterations": iterations,
             "task_description": browse_task.description.strip(),
             "task_result": str(result),
             "initial_balance": initial_balance,
@@ -157,6 +169,7 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
             "session_id": session_id,
             "timestamp": datetime.now().isoformat(),
             "model_name": model_name,
+            "iterations": iterations,
             "task_description": browse_task.description.strip(),
             "error": str(e),
             "initial_balance": initial_balance,
@@ -177,7 +190,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Wikipedia browsing agent with MCP Playwright"
+        description="Wikipedia browsing agent with custom MCP tools"
     )
     parser.add_argument(
         "--model",
@@ -185,6 +198,12 @@ if __name__ == "__main__":
         default="anthropic/claude-sonnet-4.5",
         help="Model name to use (default: anthropic/claude-sonnet-4.5)",
     )
+    parser.add_argument(
+        "--iterations",
+        type=int,
+        default=15,
+        help="Number of navigation/exploration steps (default: 15)",
+    )
 
     args = parser.parse_args()
-    main(model_name=args.model)
+    main(model_name=args.model, iterations=args.iterations)

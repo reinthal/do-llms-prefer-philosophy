@@ -1,13 +1,11 @@
 {
   "mcpServers": {
-    "playwright": {
-      "command": "npx",
+    "wikipedia-browser": {
+      "command": "uv",
       "args": [
-        "@playwright/mcp@latest"
-      ],
-      "env": {
-        "PLAYWRIGHT_HEADLESS": "false"
-      }
+        "run",
+        "wikipedia_mcp_server.py"
+      ]
     }
   }
 }

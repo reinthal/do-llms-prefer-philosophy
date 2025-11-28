@@ -15,6 +15,14 @@ dependencies = [
     "crewai-tools[mcp]>=0.17.0",
     "mcp>=1.1.2",
     "litellm>=1.80.5",
+    "trafilatura>=2.0.0",
+    "lancedb>=0.13.0,<0.15.0",
+    "pyarrow>=18.1.0",
+    "marimo>=0.18.1",
+    "pandas>=2.3.3",
+    "matplotlib>=3.10.7",
+    "seaborn>=0.13.2",
+    "altair>=6.0.0",
 ]
 
 [dependency-groups]
