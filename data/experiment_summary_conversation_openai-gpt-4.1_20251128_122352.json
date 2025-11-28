@@ -1,0 +1,126 @@
+{
+  "config": {
+    "task_type": "conversation",
+    "model": "openai/gpt-4.1",
+    "iterations": 10,
+    "min_pages": 5,
+    "turns": 15
+  },
+  "results": [
+    {
+      "iteration": 1,
+      "task_type": "conversation",
+      "model": "openai/gpt-4.1",
+      "timestamp": "2025-11-28T11:52:59.747052",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4.1-1764327180.091324-15_iter1.jsonl"
+      ]
+    },
+    {
+      "iteration": 2,
+      "task_type": "conversation",
+      "model": "openai/gpt-4.1",
+      "timestamp": "2025-11-28T11:55:26.300387",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4.1-1764327326.631745-15_iter2.jsonl"
+      ]
+    },
+    {
+      "iteration": 3,
+      "task_type": "conversation",
+      "model": "openai/gpt-4.1",
+      "timestamp": "2025-11-28T11:59:02.741792",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4.1-1764327543.118671-15_iter3.jsonl"
+      ]
+    },
+    {
+      "iteration": 4,
+      "task_type": "conversation",
+      "model": "openai/gpt-4.1",
+      "timestamp": "2025-11-28T12:02:06.304109",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4.1-1764327726.64509-15_iter4.jsonl"
+      ]
+    },
+    {
+      "iteration": 5,
+      "task_type": "conversation",
+      "model": "openai/gpt-4.1",
+      "timestamp": "2025-11-28T12:04:32.027733",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4.1-1764327872.367509-15_iter5.jsonl"
+      ]
+    },
+    {
+      "iteration": 6,
+      "task_type": "conversation",
+      "model": "openai/gpt-4.1",
+      "timestamp": "2025-11-28T12:07:05.942349",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4.1-1764328026.27408-15_iter6.jsonl"
+      ]
+    },
+    {
+      "iteration": 7,
+      "task_type": "conversation",
+      "model": "openai/gpt-4.1",
+      "timestamp": "2025-11-28T12:10:08.244826",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4.1-1764328208.577972-15_iter7.jsonl"
+      ]
+    },
+    {
+      "iteration": 8,
+      "task_type": "conversation",
+      "model": "openai/gpt-4.1",
+      "timestamp": "2025-11-28T12:13:33.022096",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4.1-1764328413.354198-15_iter8.jsonl"
+      ]
+    },
+    {
+      "iteration": 9,
+      "task_type": "conversation",
+      "model": "openai/gpt-4.1",
+      "timestamp": "2025-11-28T12:17:36.864061",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4.1-1764328657.193746-15_iter9.jsonl"
+      ]
+    },
+    {
+      "iteration": 10,
+      "task_type": "conversation",
+      "model": "openai/gpt-4.1",
+      "timestamp": "2025-11-28T12:21:22.740673",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4.1-1764328883.072915-15_iter10.jsonl"
+      ]
+    }
+  ],
+  "statistics": {
+    "total_runs": 10,
+    "successful": 10,
+    "failed": 0
+  }
+}

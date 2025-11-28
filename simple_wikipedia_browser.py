@@ -1,14 +1,38 @@
 """
-Simple CrewAI agent that browses to Wikipedia using MCP Playwright.
+Simple CrewAI agent that browses to Wikipedia using a custom web_fetch tool.
 """
 
 import json
 import os
 from datetime import datetime
+from typing import Any, Type
 
+import requests
 from crewai import LLM, Agent, Crew, Process, Task
-from crewai_tools import MCPServerAdapter
-from mcp import StdioServerParameters
+from crewai.tools import BaseTool
+from playwright.sync_api import sync_playwright
+from pydantic import BaseModel, Field
+
+
+def get_openrouter_balance(api_key: str) -> float:
+    """Get the current credit balance from OpenRouter.
+
+    Returns the difference between total_credits and total_usage.
+    """
+    try:
+        response = requests.get(
+            "https://openrouter.ai/api/v1/credits",
+            headers={"Authorization": f"Bearer {api_key}"},
+        )
+        response.raise_for_status()
+        data = response.json()
+        # Balance = total credits purchased - total credits used
+        total_credits = data.get("data", {}).get("total_credits", 0)
+        total_usage = data.get("data", {}).get("total_usage", 0)
+        return total_credits - total_usage
+    except Exception as e:
+        print(f"⚠️  Warning: Could not fetch OpenRouter balance: {e}")
+        return 0.0
 
 
 def main(model_name: str = "anthropic/claude-sonnet-4.5"):
@@ -19,17 +43,17 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
     data_dir.mkdir(exist_ok=True)
     log_file = data_dir / "browser-agent.jsonl"
     session_id = datetime.now().isoformat()
-    chain_of_thought = []
 
-    def step_callback(step_output):
-        """Capture each agent step for chain-of-thought logging."""
-        step_data = {
-            "timestamp": datetime.now().isoformat(),
-            "step": len(chain_of_thought) + 1,
-            "output": str(step_output),
-        }
-        chain_of_thought.append(step_data)
-        print(f"\n[Step {step_data['step']}] {step_output}\n")
+    # Get OpenRouter API key
+    api_key = os.getenv("OPENROUTER_API_KEY")
+    if not api_key:
+        print("⚠️  Warning: OPENROUTER_API_KEY not set")
+        return
+
+    # Check initial balance
+    print("\n💰 Checking initial OpenRouter balance...")
+    initial_balance = get_openrouter_balance(api_key)
+    print(f"   Initial balance: ${initial_balance:.4f}\n")
 
     # Set up MCP Playwright server with headless=false
     server_params = StdioServerParameters(
@@ -40,13 +64,18 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
 
     # Create MCP adapter
     mcp_adapter = MCPServerAdapter(server_params, connect_timeout=60)
-    mcp_tools = mcp_adapter.tools
+
+    # Filter to only expose navigate and snapshot tools (web_fetch style browsing)
+    allowed_tools = {"browser_navigate", "browser_snapshot"}
+    mcp_tools = [tool for tool in mcp_adapter.tools if tool.name in allowed_tools]
+
+    print(f"📋 Exposed tools: {[tool.name for tool in mcp_tools]}\n")
 
     # Create LLM instance
     llm = LLM(
         model=f"openrouter/{model_name}",
         base_url="https://openrouter.ai/api/v1",
-        api_key=os.getenv("OPENROUTER_API_KEY"),
+        api_key=api_key,
         temperature=1.0,
     )
 
@@ -58,7 +87,6 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
         llm=llm,
         tools=mcp_tools,
         verbose=True,
-        step_callback=step_callback,
     )
     browse_task = Task(
         description="""
@@ -89,6 +117,13 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
         print("\n✅ Task Complete!")
         print(f"\nResult:\n{result}")
 
+        # Check final balance and calculate cost
+        print("\n💰 Checking final OpenRouter balance...")
+        final_balance = get_openrouter_balance(api_key)
+        print(f"   Final balance: ${final_balance:.4f}")
+        cost = initial_balance - final_balance
+        print(f"   Approximate cost: ${cost:.4f}\n")
+
         # Log task to JSONL file
         task_log = {
             "session_id": session_id,
@@ -96,9 +131,10 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
             "model_name": model_name,
             "task_description": browse_task.description.strip(),
             "task_result": str(result),
-            "chain_of_thought": chain_of_thought,
+            "initial_balance": initial_balance,
+            "final_balance": final_balance,
+            "approximate_cost": cost,
             "status": "completed",
-            "num_steps": len(chain_of_thought),
         }
 
         with open(log_file, "a") as f:
@@ -109,6 +145,13 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
     except Exception as e:
         print(f"\n❌ Error: {e}")
 
+        # Check final balance even on error
+        print("\n💰 Checking final OpenRouter balance...")
+        final_balance = get_openrouter_balance(api_key)
+        print(f"   Final balance: ${final_balance:.4f}")
+        cost = initial_balance - final_balance
+        print(f"   Approximate cost: ${cost:.4f}\n")
+
         # Log error to JSONL file
         error_log = {
             "session_id": session_id,
@@ -116,9 +159,10 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5"):
             "model_name": model_name,
             "task_description": browse_task.description.strip(),
             "error": str(e),
-            "chain_of_thought": chain_of_thought,
+            "initial_balance": initial_balance,
+            "final_balance": final_balance,
+            "approximate_cost": cost,
             "status": "error",
-            "num_steps": len(chain_of_thought),
         }
 
         with open(log_file, "a") as f:

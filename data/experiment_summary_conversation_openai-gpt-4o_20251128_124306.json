@@ -1,0 +1,116 @@
+{
+  "config": {
+    "task_type": "conversation",
+    "model": "openai/gpt-4o",
+    "iterations": 10,
+    "min_pages": 5,
+    "turns": 15
+  },
+  "results": [
+    {
+      "iteration": 1,
+      "task_type": "conversation",
+      "model": "openai/gpt-4o",
+      "timestamp": "2025-11-28T12:23:52.838641",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4o-1764329033.171654-15_iter1.jsonl"
+      ]
+    },
+    {
+      "iteration": 2,
+      "task_type": "conversation",
+      "model": "openai/gpt-4o",
+      "timestamp": "2025-11-28T12:27:23.721899",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4o-1764329244.056845-15_iter2.jsonl"
+      ]
+    },
+    {
+      "iteration": 3,
+      "task_type": "conversation",
+      "model": "openai/gpt-4o",
+      "timestamp": "2025-11-28T12:30:42.583521",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4o-1764329442.916548-15_iter3.jsonl"
+      ]
+    },
+    {
+      "iteration": 4,
+      "task_type": "conversation",
+      "model": "openai/gpt-4o",
+      "timestamp": "2025-11-28T12:33:42.328290",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4o-1764329622.657972-15_iter4.jsonl"
+      ]
+    },
+    {
+      "iteration": 5,
+      "task_type": "conversation",
+      "model": "openai/gpt-4o",
+      "timestamp": "2025-11-28T12:37:42.638781",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-openai-gpt-4o-1764329862.972511-15_iter5.jsonl"
+      ]
+    },
+    {
+      "iteration": 6,
+      "task_type": "conversation",
+      "model": "openai/gpt-4o",
+      "timestamp": "2025-11-28T12:40:03.809368",
+      "success": false,
+      "error": "Process failed with return code 1",
+      "output_files": []
+    },
+    {
+      "iteration": 7,
+      "task_type": "conversation",
+      "model": "openai/gpt-4o",
+      "timestamp": "2025-11-28T12:43:02.772800",
+      "success": false,
+      "error": "Process failed with return code 1",
+      "output_files": []
+    },
+    {
+      "iteration": 8,
+      "task_type": "conversation",
+      "model": "openai/gpt-4o",
+      "timestamp": "2025-11-28T12:43:03.797862",
+      "success": false,
+      "error": "Process failed with return code 1",
+      "output_files": []
+    },
+    {
+      "iteration": 9,
+      "task_type": "conversation",
+      "model": "openai/gpt-4o",
+      "timestamp": "2025-11-28T12:43:05.016739",
+      "success": false,
+      "error": "Process failed with return code 1",
+      "output_files": []
+    },
+    {
+      "iteration": 10,
+      "task_type": "conversation",
+      "model": "openai/gpt-4o",
+      "timestamp": "2025-11-28T12:43:05.631887",
+      "success": false,
+      "error": "Process failed with return code 1",
+      "output_files": []
+    }
+  ],
+  "statistics": {
+    "total_runs": 10,
+    "successful": 5,
+    "failed": 5
+  }
+}
