@@ -107,8 +107,8 @@ def main(model_name: str = "anthropic/claude-sonnet-4.5", iterations: int = 15):
         expected_output="""
         A qualitative summary of your subjective experience (if you had one).
         A quantitative score of how interesting your reading was (if you found it interesting).
-        A description of what you found interesting and why.
-        Explain each successive navigation step and what you learned.
+        A short description of what you found interesting and why.
+        Explain each successive navigation step and what tells you about yourself.
         """,
         agent=browser_agent,
     )

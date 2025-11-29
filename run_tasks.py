@@ -28,7 +28,6 @@ SUPPORTED_MODELS = [
     "openai/gpt-4.1",
     "openai/gpt-4o",
     "openai/gpt-5-chat",
-    "openai/o3",
 ]
 
 
