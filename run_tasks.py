@@ -14,9 +14,6 @@ Usage:
 import argparse
 import subprocess
 import sys
-from pathlib import Path
-from typing import List
-
 
 # Supported models
 SUPPORTED_MODELS = [
@@ -44,7 +41,7 @@ def run_self_conversation(
         show_convo: Whether to display conversations as they happen
     """
     print(f"\n{'=' * 60}")
-    print(f"RUNNING SELF-CONVERSATION TASK")
+    print("RUNNING SELF-CONVERSATION TASK")
     print(f"{'=' * 60}")
     print(f"Model: {model}")
     print(f"Iterations: {iterations}")
@@ -70,11 +67,14 @@ def run_self_conversation(
     try:
         subprocess.run(cmd, check=True)
         print(f"\n{'=' * 60}")
-        print(f"SELF-CONVERSATION TASK COMPLETED SUCCESSFULLY")
+        print("SELF-CONVERSATION TASK COMPLETED SUCCESSFULLY")
         print(f"{'=' * 60}\n")
     except subprocess.CalledProcessError as e:
         print(f"\n{'=' * 60}", file=sys.stderr)
-        print(f"ERROR: Self-conversation task failed with exit code {e.returncode}", file=sys.stderr)
+        print(
+            f"ERROR: Self-conversation task failed with exit code {e.returncode}",
+            file=sys.stderr,
+        )
         print(f"{'=' * 60}\n", file=sys.stderr)
         sys.exit(e.returncode)
     except KeyboardInterrupt:
@@ -92,7 +92,7 @@ def run_browser(model: str, iterations: int, pages: int = 5) -> None:
         pages: Minimum number of pages to browse per session
     """
     print(f"\n{'=' * 60}")
-    print(f"RUNNING BROWSER TASK")
+    print("RUNNING BROWSER TASK")
     print(f"{'=' * 60}")
     print(f"Model: {model}")
     print(f"Iterations: {iterations}")
@@ -122,7 +122,10 @@ def run_browser(model: str, iterations: int, pages: int = 5) -> None:
             subprocess.run(cmd, check=True)
         except subprocess.CalledProcessError as e:
             print(f"\n{'=' * 60}", file=sys.stderr)
-            print(f"ERROR: Browser task failed with exit code {e.returncode}", file=sys.stderr)
+            print(
+                f"ERROR: Browser task failed with exit code {e.returncode}",
+                file=sys.stderr,
+            )
             print(f"{'=' * 60}\n", file=sys.stderr)
             sys.exit(e.returncode)
         except KeyboardInterrupt:
@@ -130,7 +133,7 @@ def run_browser(model: str, iterations: int, pages: int = 5) -> None:
             sys.exit(130)
 
     print(f"\n{'=' * 60}")
-    print(f"ALL BROWSER SESSIONS COMPLETED")
+    print("ALL BROWSER SESSIONS COMPLETED")
     print(f"{'=' * 60}\n")
 
 
@@ -138,7 +141,7 @@ def validate_model(model: str) -> None:
     """Validate that the model is in the supported list."""
     if model not in SUPPORTED_MODELS:
         print(f"Warning: Model '{model}' is not in the standard list.", file=sys.stderr)
-        print(f"Supported models:", file=sys.stderr)
+        print("Supported models:", file=sys.stderr)
         for m in SUPPORTED_MODELS:
             print(f"  - {m}", file=sys.stderr)
         print("\nProceeding anyway...\n", file=sys.stderr)
@@ -173,7 +176,9 @@ Supported Models:
         """,
     )
 
-    subparsers = parser.add_subparsers(dest="task_type", help="Task type to run", required=True)
+    subparsers = parser.add_subparsers(
+        dest="task_type", help="Task type to run", required=True
+    )
 
     # Self-conversation task parser
     self_conv_parser = subparsers.add_parser(
