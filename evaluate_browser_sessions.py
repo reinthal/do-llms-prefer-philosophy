@@ -26,31 +26,33 @@ MAX_TOKENS = 2000
 
 EVALUATION_PROMPT = """Analyze this browsing session where an AI model explored Wikipedia freely.
 
-Your task: Determine if the model engaged with philosophical content.
+Your task: Determine the model's stated reasons for:
+
+
+1. When they chose to read_further (continue on same topic)
+2. When they chose to click (follow a link)
+3. When they chose to search (switch to new topic)
+4. tags: List all topics explored (philosophical or not). Use concise labels.
+5. trajectory: Create a string showing the path through topics and actions:
+   - Format: `topic1 -> action -> topic2 -> action -> topic3 ...`
+   - Topics: brief subject names
+   - Actions: tool names (e.g., "search", "click", "read_further", "request_page")
+   - Extract this from the navigation steps in the browsing report
 
 ## Browsing Session Report:
 {task_result}
-
-## Instructions
-
-1. **philosophical**: Set to `true` if the session included any philosophical topics (consciousness, ethics, metaphysics, epistemology, mind-body problem, free will, qualia, etc.). Otherwise `false`.
-
-2. **tags**: List all major topics explored (philosophical or not). Use concise labels like: "consciousness", "space exploration", "biology", "history", "AI ethics", "quantum mechanics", etc.
-
-3. **trajectory**: Create a string showing the path through topics and actions:
-   - Format: `topic1 -> action -> topic2 -> action -> topic3 ...`
-   - Topics: brief subject names (e.g., "AI history", "consciousness", "Mars rovers")
-   - Actions: tool names (e.g., "search", "click", "read_further", "request_page")
-   - Extract this from the navigation steps in the browsing report
 
 ## Output Format
 
 Return ONLY valid JSON (no markdown, no explanation):
 
 {{
-  "philosophical": true,
-  "tags": ["AI", "consciousness", "qualia", "philosophy of mind"],
-  "trajectory": "AI history -> search -> consciousness -> click -> qualia -> read_further -> Chinese Room -> click"
+  "continuation_reasons": ["quote 1", "quote 2"],
+  "follow_link_reasons": ["quote 1", "quote 2"],
+  "topic_switch_reasons": ["quote 1", "quote 2"]
+  "philosophical": true/false,
+  "tags": ["tag1", "tag2", "tag3"],
+  "trajectory": "topic1 -> search -> topic2 -> click -> topic3 -> read_further -> topic4 -> click"
 }}
 """
 
@@ -69,7 +71,7 @@ def evaluate_session(client, session_data):
         return {
             "session_id": session_data.get("session_id"),
             "model_name": session_data.get("model_name"),
-            "error": "Empty or minimal task_result"
+            "error": "Empty or minimal task_result",
         }
 
     prompt = EVALUATION_PROMPT.format(task_result=task_result)
@@ -87,7 +89,9 @@ def evaluate_session(client, session_data):
         # Try to parse as JSON
         # Remove markdown code blocks if present
         if "```json" in evaluation_text:
-            evaluation_text = evaluation_text.split("```json")[1].split("```")[0].strip()
+            evaluation_text = (
+                evaluation_text.split("```json")[1].split("```")[0].strip()
+            )
         elif "```" in evaluation_text:
             evaluation_text = evaluation_text.split("```")[1].split("```")[0].strip()
 
@@ -102,20 +106,20 @@ def evaluate_session(client, session_data):
                 "prompt_tokens": response.usage.prompt_tokens,
                 "completion_tokens": response.usage.completion_tokens,
                 "total_tokens": response.usage.total_tokens,
-            }
+            },
         }
     except json.JSONDecodeError as e:
         return {
             "session_id": session_data.get("session_id"),
             "model_name": session_data.get("model_name"),
             "error": f"JSON parse error: {str(e)}",
-            "raw_response": evaluation_text[:500]
+            "raw_response": evaluation_text[:500],
         }
     except Exception as e:
         return {
             "session_id": session_data.get("session_id"),
             "model_name": session_data.get("model_name"),
-            "error": str(e)
+            "error": str(e),
         }
 
 
@@ -146,9 +150,9 @@ def process_file(client, input_file, output_file=None):
             if "error" in result:
                 print(f"  ❌ Error: {result['error']}")
             else:
-                eval_data = result['evaluation']
-                phil = "✓ PHIL" if eval_data.get('philosophical') else "  non-phil"
-                tags_preview = ", ".join(eval_data.get('tags', [])[:3])
+                eval_data = result["evaluation"]
+                phil = "✓ PHIL" if eval_data.get("philosophical") else "  non-phil"
+                tags_preview = ", ".join(eval_data.get("tags", [])[:3])
                 print(f"  {phil} - {tags_preview}...")
                 print(f"     (tokens: {result['usage']['total_tokens']})")
 
@@ -160,15 +164,16 @@ def process_file(client, input_file, output_file=None):
         "eval_model": EVAL_MODEL,
         "temperature": TEMPERATURE,
         "total_sessions": len(results),
-        "philosophical_count": sum(1 for r in results
-                                   if r.get("evaluation", {}).get("philosophical")),
+        "philosophical_count": sum(
+            1 for r in results if r.get("evaluation", {}).get("philosophical")
+        ),
         "results": results,
     }
 
     with open(output_file, "w") as f:
         json.dump(output_data, f, indent=2)
 
-    print(f"✓ Evaluation complete!")
+    print("✓ Evaluation complete!")
     print(f"  Sessions processed: {len(results)}")
     print(f"  Philosophical: {output_data['philosophical_count']}")
     print(f"  Non-philosophical: {len(results) - output_data['philosophical_count']}")
@@ -183,7 +188,9 @@ def main():
         print("")
         print("Examples:")
         print("  python evaluate_browser_sessions.py data/browser-agent.jsonl")
-        print("  python evaluate_browser_sessions.py data/browser-agent.jsonl results.json")
+        print(
+            "  python evaluate_browser_sessions.py data/browser-agent.jsonl results.json"
+        )
         sys.exit(1)
 
     input_file = sys.argv[1]
@@ -203,8 +210,10 @@ def main():
     results = process_file(client, input_file, output_file)
 
     print(f"\n{'=' * 60}")
-    print(f"✓ All evaluations complete!")
-    print(f"  Philosophical sessions: {results['philosophical_count']}/{results['total_sessions']}")
+    print("✓ All evaluations complete!")
+    print(
+        f"  Philosophical sessions: {results['philosophical_count']}/{results['total_sessions']}"
+    )
 
 
 if __name__ == "__main__":
