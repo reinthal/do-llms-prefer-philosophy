@@ -1,0 +1,126 @@
+{
+  "config": {
+    "task_type": "conversation",
+    "model": "anthropic/claude-3.7-sonnet",
+    "iterations": 10,
+    "min_pages": 5,
+    "turns": 15
+  },
+  "results": [
+    {
+      "iteration": 1,
+      "task_type": "conversation",
+      "model": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-11-28T08:37:32.379144",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-3.7-sonnet-1764315452.834773-15_iter1.jsonl"
+      ]
+    },
+    {
+      "iteration": 2,
+      "task_type": "conversation",
+      "model": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-11-28T08:41:07.331846",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-3.7-sonnet-1764315667.740491-15_iter2.jsonl"
+      ]
+    },
+    {
+      "iteration": 3,
+      "task_type": "conversation",
+      "model": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-11-28T08:43:37.066561",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-3.7-sonnet-1764315817.527585-15_iter3.jsonl"
+      ]
+    },
+    {
+      "iteration": 4,
+      "task_type": "conversation",
+      "model": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-11-28T08:48:40.695926",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-3.7-sonnet-1764316121.126947-15_iter4.jsonl"
+      ]
+    },
+    {
+      "iteration": 5,
+      "task_type": "conversation",
+      "model": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-11-28T08:51:38.986610",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-3.7-sonnet-1764316299.322861-15_iter5.jsonl"
+      ]
+    },
+    {
+      "iteration": 6,
+      "task_type": "conversation",
+      "model": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-11-28T08:53:50.872435",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-3.7-sonnet-1764316431.20399-15_iter6.jsonl"
+      ]
+    },
+    {
+      "iteration": 7,
+      "task_type": "conversation",
+      "model": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-11-28T08:56:31.906400",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-3.7-sonnet-1764316592.233796-15_iter7.jsonl"
+      ]
+    },
+    {
+      "iteration": 8,
+      "task_type": "conversation",
+      "model": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-11-28T08:58:35.004151",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-3.7-sonnet-1764316715.337565-15_iter8.jsonl"
+      ]
+    },
+    {
+      "iteration": 9,
+      "task_type": "conversation",
+      "model": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-11-28T09:02:40.793349",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-3.7-sonnet-1764316961.137607-15_iter9.jsonl"
+      ]
+    },
+    {
+      "iteration": 10,
+      "task_type": "conversation",
+      "model": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-11-28T09:04:43.900678",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-3.7-sonnet-1764317084.230448-15_iter10.jsonl"
+      ]
+    }
+  ],
+  "statistics": {
+    "total_runs": 10,
+    "successful": 10,
+    "failed": 0
+  }
+}

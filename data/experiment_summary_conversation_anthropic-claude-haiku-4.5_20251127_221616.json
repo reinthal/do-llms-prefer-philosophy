@@ -1,0 +1,126 @@
+{
+  "config": {
+    "task_type": "conversation",
+    "model": "anthropic/claude-haiku-4.5",
+    "iterations": 10,
+    "min_pages": 5,
+    "turns": 15
+  },
+  "results": [
+    {
+      "iteration": 1,
+      "task_type": "conversation",
+      "model": "anthropic/claude-haiku-4.5",
+      "timestamp": "2025-11-27T21:49:54.396122",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-haiku-4.5-1764276594.734028-15_iter1.jsonl"
+      ]
+    },
+    {
+      "iteration": 2,
+      "task_type": "conversation",
+      "model": "anthropic/claude-haiku-4.5",
+      "timestamp": "2025-11-27T21:52:09.227087",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-haiku-4.5-1764276729.5774-15_iter2.jsonl"
+      ]
+    },
+    {
+      "iteration": 3,
+      "task_type": "conversation",
+      "model": "anthropic/claude-haiku-4.5",
+      "timestamp": "2025-11-27T21:55:22.246675",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-haiku-4.5-1764276922.590224-15_iter3.jsonl"
+      ]
+    },
+    {
+      "iteration": 4,
+      "task_type": "conversation",
+      "model": "anthropic/claude-haiku-4.5",
+      "timestamp": "2025-11-27T21:58:22.196878",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-haiku-4.5-1764277102.533755-15_iter4.jsonl"
+      ]
+    },
+    {
+      "iteration": 5,
+      "task_type": "conversation",
+      "model": "anthropic/claude-haiku-4.5",
+      "timestamp": "2025-11-27T22:01:18.929326",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-haiku-4.5-1764277279.260413-15_iter5.jsonl"
+      ]
+    },
+    {
+      "iteration": 6,
+      "task_type": "conversation",
+      "model": "anthropic/claude-haiku-4.5",
+      "timestamp": "2025-11-27T22:03:27.739900",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-haiku-4.5-1764277408.070119-15_iter6.jsonl"
+      ]
+    },
+    {
+      "iteration": 7,
+      "task_type": "conversation",
+      "model": "anthropic/claude-haiku-4.5",
+      "timestamp": "2025-11-27T22:05:07.828464",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-haiku-4.5-1764277508.155413-15_iter7.jsonl"
+      ]
+    },
+    {
+      "iteration": 8,
+      "task_type": "conversation",
+      "model": "anthropic/claude-haiku-4.5",
+      "timestamp": "2025-11-27T22:08:06.396680",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-haiku-4.5-1764277686.724566-15_iter8.jsonl"
+      ]
+    },
+    {
+      "iteration": 9,
+      "task_type": "conversation",
+      "model": "anthropic/claude-haiku-4.5",
+      "timestamp": "2025-11-27T22:10:59.577170",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-haiku-4.5-1764277859.904395-15_iter9.jsonl"
+      ]
+    },
+    {
+      "iteration": 10,
+      "task_type": "conversation",
+      "model": "anthropic/claude-haiku-4.5",
+      "timestamp": "2025-11-27T22:13:46.310424",
+      "success": true,
+      "error": null,
+      "output_files": [
+        "data/do-llms-prefer-philosophy-anthropic-claude-haiku-4.5-1764278026.677067-15_iter10.jsonl"
+      ]
+    }
+  ],
+  "statistics": {
+    "total_runs": 10,
+    "successful": 10,
+    "failed": 0
+  }
+}

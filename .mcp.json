@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "wikipedia-browser": {
+      "command": "uv",
+      "args": [
+        "run",
+        "wikipedia_mcp_server.py"
+      ]
+    }
+  }
+}
