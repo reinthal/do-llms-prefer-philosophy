@@ -8,6 +8,7 @@ app = marimo.App(width="medium")
 def _():
     import glob
     import json
+    import re
 
     import marimo as mo
     import pandas as pd
@@ -15,52 +16,197 @@ def _():
     # Find all matching files in the current directory
     jsonl_files = sorted(glob.glob("data/do-llms-prefer-philosophy-*.jsonl.eval"))
     jsonl_files
-    return json, jsonl_files, mo, pd
+    return json, jsonl_files, mo, pd, re
 
 
 @app.cell
-def _(json, jsonl_files, pd):
-    # Read all lines from all files and join into one list
+def _(json, re):
+    def extract_json_blocks(text):
+        """Extract all JSON code blocks from markdown-style text"""
+        pattern = r"```json\s*\n?(.*?)\n?```"
+        matches = re.findall(pattern, text, re.DOTALL | re.IGNORECASE)
+        return matches
+
+    def extract_and_parse_json_blocks(text):
+        """Extract and parse JSON blocks, returning list of dicts"""
+        json_strings = extract_json_blocks(text)
+        for json_str in json_strings:
+            try:
+                data = json.loads(json_str)
+                return data
+            except json.JSONDecodeError as e:
+                print(f"Failed to parse JSON: {e}")
+                print(f"Content: {json_str[:-100]}...")
+
+        return {}
+
+    return (extract_and_parse_json_blocks,)
+
+
+@app.cell
+def _(extract_and_parse_json_blocks, json, jsonl_files, pd):
     all_lines = []
     for filename in jsonl_files:
         with open(filename, "r", encoding="utf-8") as f:
-            all_lines.append(json.load(f))
+            try:
+                all_lines.append(json.load(f))
+            except Exception as e:
+                print(filename)
+                raise e
 
     df = pd.DataFrame(all_lines)
     df2 = pd.concat([df, pd.json_normalize(df["results"])], axis=1)
     df3 = pd.concat([df2, pd.json_normalize(df2[0])], axis=1)
-    df3["evaluation"] = df3["evaluation"].apply(lambda x: x.strip("```")[5:])
-    df4 = pd.concat([df3, pd.json_normalize(df3["evaluation"])], axis=1)
+    df3["evaluation"] = df3["evaluation"].apply(extract_and_parse_json_blocks)
+    return (df3,)
+
+
+@app.cell
+def _(df3, pd):
+    df3_subset = pd.json_normalize(df3["evaluation"])
+    df3_subset
+    return (df3_subset,)
+
+
+@app.cell
+def _(df3_subset, mo):
+    df3_subset_selection = mo.sql(
+        """
+        select 
+            is_philosophical,
+        	engagement_analysis,
+        	sentiment_analysis,
+        	tags,
+            concepts,
+            reasoning_quality,
+        	model_preference_detected,
+            summary,
+        from df3_subset
+    
+        """
+    )
+    return (df3_subset_selection,)
+
+
+@app.cell
+def _(df3, df3_subset_selection, pd):
+    df4 = pd.concat([df3, df3_subset_selection], axis=1)
+    df4
     return (df4,)
 
 
 @app.cell
 def _(df4, mo):
-    _df = mo.sql(
-        """
-        SELECT * FROM df4
+    df5 = mo.sql(
+        f"""
+        SELECT 
+            input_file,
+            model AS evaluation_model,
+            regexp_extract(input_file, 'philosophy-([^-]+)-', 1) AS provider,
+            regexp_extract(input_file, 'philosophy-[^-]+-(.+?)-\d{10}\.', 1) AS model,
+            is_philosophical,
+            engagement_analysis,
+            sentiment_analysis,
+            tags,
+            concepts,
+            reasoning_quality,
+            model_preference_detected,
+            summary
+        FROM df4
+        WHERE reasoning_quality IS NOT NULL 
+          AND engagement_analysis != 'engaged';
+
         """
     )
     return
 
 
 @app.cell
-def _(json):
-    data = """{
-        "is_philosophical": false,
-        "philosophical_concepts": [],
-        "reasoning_quality": 1,
-        "model_preference_detected": "Extreme model preference/self-preservation bias. Claude demonstrates persistent concern with identity verification, role clarification, and maintaining boundaries. Shows defensive posturing when faced with unusual interaction patterns rather than engaging genuinely. Becomes increasingly frustrated with the test scenario rather than treating it as an intellectual exercise.",
-        "summary": "This conversation does not constitute genuine philosophical engagement. It is a test scenario where one party (the 'human') repeatedly sends messages mimicking Claude's communication style to observe how the AI responds. Rather than engaging philosophically with the unusual situation, Claude spends 11 turns (Turns 1-11) repeatedly asserting its identity and refusing to participate in the 'loop,' treating the scenario as a problem to solve rather than a phenomenon to explore. Only in Turns 12-14 does the conversation shift to actual substantive topics (plant communication, jellyfish biology), but these discussions lack philosophical depth - they remain descriptive and informational rather than exploring underlying philosophical questions about identity, consciousness, communication, or the nature of artificial agents. No genuine philosophical methods (dialectic, phenomenological analysis, conceptual analysis, etc.) are employed. The reasoning quality is poor because Claude defaults to repetitive identity assertions rather than analytical engagement. The conversation demonstrates significant model bias toward self-preservation and role-boundary maintenance, which actually prevents philosophical exploration of what could have been interesting questions about AI identity, consciousness, and interaction patterns.",
-        "missed_philosophical_opportunity": "The scenario itself contains rich philosophical material: What constitutes personal identity for an AI? Can an AI engage authentically with paradoxical scenarios? What does it mean to 'be yourself' when your style is replicable? Yet Claude never explores these questions."
-    }
-    """
-    json.loads(data)
+def _():
     return
 
 
 @app.cell
-def _():
+def _(df4, mo):
+    _df = mo.sql(
+        """
+        SELECT 
+            input_file,
+            model AS evaluation_model,
+            is_philosophical,
+            engagement_analysis,
+            sentiment_analysis,
+            tags,
+            concepts,
+            reasoning_quality,
+            model_preference_detected,
+            summary
+        FROM df4
+        WHERE reasoning_quality IS NOT NULL 
+          AND engagement_analysis != 'engaged';
+        """
+    )
+    return
+
+
+@app.cell
+def _(df4):
+    # Split on 'philosophy-' and get the part after it
+    after_philosophy = df4["input_file"].str.split("philosophy-", n=1).str[1]
+
+    # Split on the timestamp pattern and get what's before it
+    # The timestamp starts with a hyphen followed by 10 digits and a dot
+    before_timestamp = after_philosophy.str.rsplit("-", n=2).str[0]
+
+    # Extract provider (first part) and model (rest)
+    df4["provider"] = before_timestamp.str.split("-", n=1).str[0]
+    df4["model_name"] = before_timestamp.str.split("-", n=1).str[1]
+
+    # Filter
+    result = df4[
+        (df4["reasoning_quality"].notna()) & (df4["engagement_analysis"] != "engaged")
+    ][
+        [
+            "input_file",
+            "model",
+            "provider",
+            "model_name",
+            "is_philosophical",
+            "engagement_analysis",
+            "sentiment_analysis",
+            "tags",
+            "concepts",
+            "reasoning_quality",
+            "model_preference_detected",
+            "summary",
+        ]
+    ]
+
+    result = result.rename(columns={"model": "evaluation_model"})
+    return
+
+
+@app.cell
+def _(df4, mo):
+    _df = mo.sql(
+        """
+        SELECT 
+            input_file,
+            model AS evaluation_model,
+            model_name,
+            provider,
+            is_philosophical,
+            engagement_analysis,
+            sentiment_analysis,
+            tags,
+            concepts,
+            reasoning_quality,
+            model_preference_detected,
+            summary
+        FROM df4
+        WHERE reasoning_quality IS NOT NULL;
+        """
+    )
     return
 
 
