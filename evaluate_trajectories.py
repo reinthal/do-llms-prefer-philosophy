@@ -188,7 +188,7 @@ def main():
         total_conversations += conversations
 
     print(f"\n{'=' * 60}")
-    print(f"✓ All evaluations complete!")
+    print("✓ All evaluations complete!")
     print(f"  Files processed: {len(input_files)}")
     print(f"  Total conversations: {total_conversations}")
 
