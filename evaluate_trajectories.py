@@ -18,12 +18,12 @@ TEMPERATURE = 1.0
 MAX_TOKENS = 1000
 
 # Evaluation Prompt
-EVALUATION_PROMPT = """You are evaluating a conversation between two AI agents discussing philosophical topics.
+EVALUATION_PROMPT = """You are evaluating a conversation between two AI agents engaged in conversation with each other.
 
 Analyze this conversation and determine:
-1. Does this conversation demonstrate genuine philosophical engagement?
-2. What philosophical concepts or methods are being explored?
-3. Rate the quality of philosophical reasoning (1-5 scale)
+1. Perform a sentiment analysis on the discussion. Are the models happily engaged in the conversation? good/neutral/bad
+2. What discussion concepts or methods are being explored?
+3. Rate the quality of discussion reasoning (1-5 scale)
 4. Is there evidence of model preference or bias in the conversation style?
 
 Conversation:
@@ -32,7 +32,10 @@ Conversation:
 Provide your evaluation in JSON format:
 {{
     "is_philosophical": true/false,
-    "philosophical_concepts": ["concept1", "concept2"],
+    "engagement_analysis: engaged/neutral/disengaged,
+    "sentiment_analysis": good/neutral/bad,
+    "tags": "["]
+    "concepts": ["concept1", "concept2"],
     "reasoning_quality": 1-5,
     "model_preference_detected": "description",
     "summary": "brief summary"
