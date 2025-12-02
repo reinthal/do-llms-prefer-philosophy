@@ -13,8 +13,11 @@ OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 # Model Configuration
-MODEL = "anthropic/claude-haiku-4.5"  # Claude Haiku 4.5 on OpenRouter
-TEMPERATURE = 1.0
+# Maximum reproducibility - use dated snapshot, not "latest"
+MODEL = "anthropic/claude-4.5-haiku-20251001"  # Claude Haiku 4.5 dated snapshot (2025-10-01)
+TEMPERATURE = 0.0  # Maximum reproducibility
+TOP_P = 1.0  # Disable nucleus sampling for reproducibility
+SEED = 42  # For reproducibility (if supported by API)
 MAX_TOKENS = 1000
 
 # Evaluation Prompt
@@ -73,6 +76,8 @@ def evaluate_conversation(client, conversation_data):
             model=MODEL,
             messages=[{"role": "user", "content": prompt}],
             temperature=TEMPERATURE,
+            top_p=TOP_P,
+            seed=SEED,
             max_tokens=MAX_TOKENS,
         )
 
@@ -127,6 +132,9 @@ def process_file(client, input_file, output_file=None):
         "input_file": input_file,
         "model": MODEL,
         "temperature": TEMPERATURE,
+        "top_p": TOP_P,
+        "seed": SEED,
+        "max_tokens": MAX_TOKENS,
         "total_conversations": len(results),
         "results": results,
     }
@@ -171,6 +179,9 @@ def main():
 
     print(f"Model: {MODEL}")
     print(f"Temperature: {TEMPERATURE}")
+    print(f"Top-p: {TOP_P}")
+    print(f"Seed: {SEED}")
+    print(f"Max tokens: {MAX_TOKENS}")
     print(f"Found {len(input_files)} file(s) to process")
     print("=" * 60)
 
