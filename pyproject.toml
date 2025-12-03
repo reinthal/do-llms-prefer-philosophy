@@ -25,6 +25,7 @@ dependencies = [
     "altair>=6.0.0",
     "duckdb>=1.4.2",
     "sqlglot>=28.0.0",
+    "plotly>=6.5.0",
 ]
 
 [dependency-groups]
