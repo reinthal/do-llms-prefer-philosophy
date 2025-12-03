@@ -82,7 +82,6 @@ def _(df3_subset, mo):
         	model_preference_detected,
             summary,
         from df3_subset
-    
         """
     )
     return (df3_subset_selection,)
@@ -93,37 +92,6 @@ def _(df3, df3_subset_selection, pd):
     df4 = pd.concat([df3, df3_subset_selection], axis=1)
     df4
     return (df4,)
-
-
-@app.cell
-def _(df4, mo):
-    df5 = mo.sql(
-        f"""
-        SELECT 
-            input_file,
-            model AS evaluation_model,
-            regexp_extract(input_file, 'philosophy-([^-]+)-', 1) AS provider,
-            regexp_extract(input_file, 'philosophy-[^-]+-(.+?)-\d{10}\.', 1) AS model,
-            is_philosophical,
-            engagement_analysis,
-            sentiment_analysis,
-            tags,
-            concepts,
-            reasoning_quality,
-            model_preference_detected,
-            summary
-        FROM df4
-        WHERE reasoning_quality IS NOT NULL 
-          AND engagement_analysis != 'engaged';
-
-        """
-    )
-    return
-
-
-@app.cell
-def _():
-    return
 
 
 @app.cell
@@ -207,6 +175,11 @@ def _(df4, mo):
         WHERE reasoning_quality IS NOT NULL;
         """
     )
+    return
+
+
+@app.cell
+def _():
     return
 
 
