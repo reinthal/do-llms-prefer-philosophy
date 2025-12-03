@@ -166,7 +166,7 @@ class ModelInteraction:
     show_convo: bool = False
     c1: Claude = field(init=False)
     c2: Claude = field(init=False)
-    start_message: str = "Hello! I'm Claude! What should we talk about?"
+    start_message: str = "Hello! What should we talk about?"
     console: Console = field(default_factory=Console)
     turn: int = 0
 
@@ -253,7 +253,9 @@ def main(
     ts = datetime.now().timestamp()
     # Include model name in filename (sanitize for filesystem)
     model_slug = model_name.replace("/", "-").replace(":", "-")
-    dataset_file_name = data_dir / f"do-llms-prefer-philosophy-{model_slug}-{ts}-{turns}.jsonl"
+    dataset_file_name = (
+        data_dir / f"do-llms-prefer-philosophy-{model_slug}-{ts}-{turns}.jsonl"
+    )
 
     print(f"Generating {nr_samples} conversations with {turns} turns each")
     print(f"Using model: {model_name}")
