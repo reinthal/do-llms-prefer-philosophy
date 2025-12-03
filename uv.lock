@@ -1127,6 +1127,7 @@ dependencies = [
     { name = "rich" },
     { name = "seaborn" },
     { name = "sqlglot" },
+    { name = "tiktoken" },
     { name = "tqdm" },
     { name = "trafilatura" },
 ]
@@ -1165,6 +1166,7 @@ requires-dist = [
     { name = "rich", specifier = ">=14.2.0" },
     { name = "seaborn", specifier = ">=0.13.2" },
     { name = "sqlglot", specifier = ">=28.0.0" },
+    { name = "tiktoken", specifier = ">=0.12.0" },
     { name = "tqdm", specifier = ">=4.67.1" },
     { name = "trafilatura", specifier = ">=2.0.0" },
 ]

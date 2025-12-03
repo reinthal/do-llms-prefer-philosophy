@@ -26,6 +26,7 @@ dependencies = [
     "duckdb>=1.4.2",
     "sqlglot>=28.0.0",
     "plotly>=6.5.0",
+    "tiktoken>=0.12.0",
 ]
 
 [dependency-groups]

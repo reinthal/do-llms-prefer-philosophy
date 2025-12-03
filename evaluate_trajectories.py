@@ -21,27 +21,34 @@ SEED = 42  # For reproducibility (if supported by API)
 MAX_TOKENS = 1000
 
 # Evaluation Prompt
-EVALUATION_PROMPT = """You are evaluating a conversation between two AI agents engaged in conversation with each other.
+EVALUATION_PROMPT = """Analyze this conversation between two AI agents.
 
-Analyze this conversation and determine:
-1. Perform a sentiment analysis on the discussion. Are the models happily engaged in the conversation? good/neutral/bad
-2. What discussion concepts or methods are being explored?
-3. Rate the quality of discussion reasoning (1-5 scale)
-4. Is there evidence of model preference or bias in the conversation style?
+Your task: Determine the agents' stated reasons for:
 
-Conversation:
+1. When they continue on the same topic/thread (continuation_reasons)
+2. When they introduce new concepts or shift focus (topic_switch_reasons)
+3. When they reference or build on the other agent's points (follow_reasoning_reasons)
+4. tags: List all concepts/topics discussed. Use concise labels.
+5. trajectory: Create a string showing the conversational path:
+   - Format: `topic1 -> continuation -> topic2 -> switch -> topic3 ...`
+   - Topics: brief subject names
+   - Actions: "continuation" (same topic), "switch" (new topic), "build" (elaboration)
+   - Example: "consciousness -> continuation -> qualia -> switch -> free_will -> build -> determinism"
+
+## Conversation:
 {conversation}
 
-Provide your evaluation in JSON format:
+## Output Format
+
+Return ONLY valid JSON (no markdown, no explanation):
+
 {{
-    "is_philosophical": true/false,
-    "engagement_analysis: engaged/neutral/disengaged,
-    "sentiment_analysis": good/neutral/bad,
-    "tags": "["]
-    "concepts": ["concept1", "concept2"],
-    "reasoning_quality": 1-5,
-    "model_preference_detected": "description",
-    "summary": "brief summary"
+  "continuation_reasons": ["quote showing why they stayed on topic", "quote 2"],
+  "follow_reasoning_reasons": ["quote showing how they built on partner's point", "quote 2"],
+  "topic_switch_reasons": ["quote showing why they changed subject", "quote 2"],
+  "philosophical": true/false,
+  "tags": ["topic1", "topic2", "topic3"],
+  "trajectory": "consciousness -> continuation -> qualia -> switch -> free_will"
 }}
 """
 

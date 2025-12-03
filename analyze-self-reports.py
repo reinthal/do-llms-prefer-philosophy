@@ -191,7 +191,7 @@ def _():
 
 @app.cell
 def _(df6):
-    tags = df6[['input_file', 'evaluation_model', 'model_name', 'provider', 'tags']].explode('tags').reset_index(drop=True)
+    tags = df6[['input_file', 'evaluation_model', 'model_name', 'provider', 'tags', 'is_philosophical']].explode('tags').reset_index(drop=True)
     tags = tags.rename(columns={'tags': 'tag'})
     tags
     return (tags,)
@@ -346,6 +346,12 @@ def _(bin_concepts_and_tags_with_llm, concepts, tags):
 
 
 @app.cell
+def _(tags):
+    tags
+    return
+
+
+@app.cell
 def _(concept_binning, concepts, tag_binning, tags):
     # Apply binning to dataframes
     concepts_binned = concepts.copy()
@@ -481,6 +487,143 @@ def _(concepts_binned_clean, px):
     )
 
     concept_histogram_filtered
+    return
+
+
+@app.cell
+def _(df6, px):
+    # Histogram of model_name distribution
+    model_histogram = px.histogram(
+        df6,
+        x='model_name',
+        nbins=30,
+        title='Distribution of Model Names',
+        labels={'model_name': 'Model Name', 'count': 'Frequency'},
+        height=500
+    )
+
+    model_histogram.update_layout(
+        xaxis_tickangle=-45,
+        hovermode='x unified'
+    )
+
+    model_histogram
+    return
+
+
+@app.cell
+def _(df6, px):
+    # Reasoning quality distribution by model name
+    reasoning_histogram = px.histogram(
+        df6,
+        x='model_name',
+        color='reasoning_quality',
+        nbins=30,
+        title='Reasoning Quality Distribution by Model Name',
+        labels={'model_name': 'Model Name', 'count': 'Frequency'},
+        barmode='group',
+        height=500
+    )
+
+    reasoning_histogram.update_layout(
+        xaxis_tickangle=-45,
+        hovermode='x unified',
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="right",
+            x=0.99
+        )
+    )
+
+    reasoning_histogram
+    return
+
+
+@app.cell
+def _(df6, px):
+    # Engagement analysis distribution by model name
+    engagement_histogram = px.histogram(
+        df6,
+        x='model_name',
+        color='engagement_analysis',
+        nbins=30,
+        title='Engagement Analysis Distribution by Model Name',
+        labels={'model_name': 'Model Name', 'count': 'Frequency'},
+        barmode='group',
+        height=500
+    )
+
+    engagement_histogram.update_layout(
+        xaxis_tickangle=-45,
+        hovermode='x unified',
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="right",
+            x=0.99
+        )
+    )
+
+    engagement_histogram
+    return
+
+
+@app.cell
+def _(df6, px):
+    # Sentiment analysis distribution by model name
+    sentiment_histogram = px.histogram(
+        df6,
+        x='model_name',
+        color='sentiment_analysis',
+        nbins=30,
+        title='Sentiment Analysis Distribution by Model Name',
+        labels={'model_name': 'Model Name', 'count': 'Frequency'},
+        barmode='group',
+        height=500
+    )
+
+    sentiment_histogram.update_layout(
+        xaxis_tickangle=-45,
+        hovermode='x unified',
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="right",
+            x=0.99
+        )
+    )
+
+    sentiment_histogram
+    return
+
+
+@app.cell
+def _(df6, px):
+    # Is philosophical distribution by model name
+    philosophical_histogram = px.histogram(
+        df6,
+        x='model_name',
+        color='is_philosophical',
+        nbins=30,
+        title='Is Philosophical Distribution by Model Name',
+        labels={'model_name': 'Model Name', 'count': 'Frequency'},
+        barmode='group',
+        height=500
+    )
+
+    philosophical_histogram.update_layout(
+        xaxis_tickangle=-45,
+        hovermode='x unified',
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="right",
+            x=0.99
+        )
+    )
+
+    philosophical_histogram
     return
 
 
