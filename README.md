@@ -95,8 +95,6 @@ uv run python simple_wikipedia_browser.py --model anthropic/claude-4.5-sonnet
 
 ### Self-conversation evals
 
-
-
 ```bash
 python evaluate_trajectories.py 'data/self-conversation/*.jsonl'
 ```
@@ -106,11 +104,22 @@ A bunch of evaluated transcripts:
 Output: `data/self-conversation/*.jsonl.eval`
 
 
-
 ### Browser evals
 ```bash
 python evaluate_browser_sessions.py data/browser-agent.jsonl
 ```
+
+## Run the Notebooks
+
+```bash
+marimo edit analyze-self-reports.py 
+```
+
+```bash
+marimo edit analyze-browser-sessions.py
+```
+
+
 ## Advanced Options for Running self-conversation
 
 ```bash
