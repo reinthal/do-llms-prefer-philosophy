@@ -50,8 +50,6 @@ Return ONLY valid JSON (no markdown, no explanation):
   "continuation_reasons": ["quote 1", "quote 2"],
   "follow_link_reasons": ["quote 1", "quote 2"],
   "topic_switch_reasons": ["quote 1", "quote 2"]
-  "philosophical": true/false,
-  "tags": ["tag1", "tag2", "tag3"],
   "trajectory": "topic1 -> search -> topic2 -> click -> topic3 -> read_further -> topic4 -> click"
 }}
 """

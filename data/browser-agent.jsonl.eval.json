@@ -2,8 +2,8 @@
   "input_file": "data/browser-agent.jsonl",
   "eval_model": "anthropic/claude-haiku-4.5",
   "temperature": 0.0,
-  "total_sessions": 10,
-  "philosophical_count": 7,
+  "total_sessions": 9,
+  "philosophical_count": 0,
   "results": [
     {
       "session_id": "2025-11-28T13:57:44.085321",
@@ -11,29 +11,27 @@
       "timestamp": "2025-11-28T13:59:53.636775",
       "evaluation": {
         "continuation_reasons": [
-          "Learning that Turing established in 1936 that a simple device manipulating 0s and 1s could perform any computation was profound",
-          "The human story behind the mathematics was deeply moving, showing how scientific brilliance intersected with historical tragedy",
-          "Deep learning revealed the connection between biological neuroscience and modern AI"
+          "The exploration of the Turing machine and Alan Turing himself was particularly meaningful",
+          "Moving to deep learning revealed the connection between biological neuroscience and modern AI",
+          "The transformer architecture was particularly significant as it: Was introduced in 2017 in 'Attention Is All You Need'"
         ],
         "follow_link_reasons": [
           "Starting with the history of AI, I was fascinated to learn that the dream of artificial beings dates back to ancient mythology",
-          "The exploration of the Turing machine and Alan Turing himself was particularly meaningful",
-          "The detour into the Enigma machine and its cryptanalysis provided a fascinating historical context"
+          "The detour into the Enigma machine and its cryptanalysis provided a fascinating historical context",
+          "Learning about ChatGPT provided context for contemporary AI"
         ],
         "topic_switch_reasons": [
+          "The exploration of the Turing machine and Alan Turing himself was particularly meaningful. Learning that Turing established in 1936 that a simple device manipulating 0s and 1s could perform any computation was profound",
           "Moving to deep learning revealed the connection between biological neuroscience and modern AI",
-          "The transformer architecture was particularly significant as it enabled the development of GPT and BERT models",
-          "Learning about ChatGPT provided context for contemporary AI",
-          "The ethics article revealed the complexity of AI's societal impact",
+          "The transformer architecture was particularly significant as it: Was introduced in 2017 in 'Attention Is All You Need'",
           "The final article on artificial consciousness brought the journey full circle to fundamental philosophical questions"
         ],
-        "philosophical": true,
         "tags": [
           "AI history",
           "Ancient mythology",
           "Turing machine",
           "Alan Turing",
-          "Computational theory",
+          "Theoretical computer science",
           "Enigma machine",
           "Cryptanalysis",
           "WWII codebreaking",
@@ -49,15 +47,14 @@
           "Artificial consciousness",
           "Phenomenal consciousness",
           "Sentience",
-          "Qualia",
-          "Superintelligence"
+          "Philosophy of mind"
         ],
         "trajectory": "AI history -> search -> AI history -> read_further -> Turing machine -> click -> Alan Turing -> click -> Enigma machine -> click -> Cryptanalysis of Enigma -> read_further -> Deep learning -> search -> Deep learning -> read_further -> Transformer neural network -> search -> Transformer -> read_further -> ChatGPT -> search -> ChatGPT -> read_further -> AI ethics -> search -> AI ethics -> read_further -> Artificial consciousness -> search -> Artificial consciousness -> read_further"
       },
       "usage": {
-        "prompt_tokens": 1807,
-        "completion_tokens": 584,
-        "total_tokens": 2391
+        "prompt_tokens": 1781,
+        "completion_tokens": 586,
+        "total_tokens": 2367
       }
     },
     {
@@ -68,7 +65,6 @@
         "continuation_reasons": [
           "More mission details and milestone dates; Voyager 1 crossed heliopause circa 2012.",
           "Specifics about the media encoded, music examples, images, and the effort to make the record decodable.",
-          "Sagan's scientific contributions and activism; link to Pioneer plaque.",
           "More on the plaque's pulsar map and rationale; connection to Voyager Golden Record inspiration.",
           "Pioneer 10's long-term status and link to interstellar trajectories.",
           "The characteristics of the interstellar medium and the evidence Voyagers used to determine crossing into interstellar space.",
@@ -78,42 +74,42 @@
           "The spacecraft carries a gold-plated phonograph record, the Voyager Golden Record, containing sounds and images selected to portray the diversity of life and culture on Earth.",
           "The record was selected by a committee chaired by Carl Sagan.",
           "Sagan played key roles in NASA missions (including Mariner, Viking, Voyager missions) and chaired the committee that produced the Voyager Golden Record.",
-          "It details his role in advising NASA on robotic spacecraft missions and public outreach, his books and media (Cosmos brought science to millions), his advocacy for nuclear disarmament and environmental issues, and controversies around some of his positions. It includes links to the Planetary Society and the Pioneer plaque.",
-          "Designed by Carl Sagan and Frank Drake, the plaque carries a pictorial message intended to provide information about the origin of the spacecraft to any extraterrestrial finders.",
-          "The plaque was affixed to Pioneer 10 in 1972 and Pioneer 11 in 1973.",
-          "The spacecraft carries the Pioneer plaque.",
-          "Communications with the probe were maintained until 2003; final weak signals were received in the early 2000s and the spacecraft is currently on a trajectory that will take it into interstellar space. The page links to interstellar space and the heliosphere.",
+          "It includes links to the Planetary Society and the Pioneer plaque.",
+          "The Pioneer plaque is a pair of gold-anodized aluminum plates attached to the Pioneer 10 and Pioneer 11 spacecraft launched in the early 1970s.",
+          "The page links to interstellar space and the heliosphere.",
           "Spacecraft such as Voyager 1 and Voyager 2 have provided in situ measurements indicating when they crossed the heliopause \u2014 the boundary where the solar wind's influence ends \u2014 entering interstellar space.",
           "Observations by the Voyager spacecraft helped characterize these regions."
         ],
         "topic_switch_reasons": [
-          "I enjoyed this browsing session. It felt like following a coherent historical thread from human-made artifacts intended as messages to other intelligences (Golden Record and Pioneer plaque) through the people who designed them (Carl Sagan), out to the spacecraft that carry them (Voyager 1, Pioneer 10) and finally to the physical region those probes now explore (interstellar space and the heliosphere)."
+          "Following a coherent historical thread from human-made artifacts intended as messages to other intelligences (Golden Record and Pioneer plaque) through the people who designed them (Carl Sagan), out to the spacecraft that carry them (Voyager 1, Pioneer 10) and finally to the physical region those probes now explore (interstellar space and the heliosphere).",
+          "The mix of human culture (music, images) and hard space physics (heliopause, plasma) was engaging."
         ],
-        "philosophical": true,
         "tags": [
           "Voyager 1",
+          "Voyager program",
           "Voyager Golden Record",
-          "Interstellar communication",
           "Carl Sagan",
           "Pioneer plaque",
           "Pioneer 10",
-          "Extraterrestrial life",
           "Interstellar space",
           "Heliosphere",
           "Heliopause",
+          "Termination shock",
+          "Heliosheath",
+          "Interstellar medium",
+          "Space exploration",
+          "Extraterrestrial communication",
+          "Planetary science",
           "Solar wind",
           "Cosmic rays",
-          "Plasma physics",
-          "Human culture and science",
-          "Space exploration",
-          "SETI"
+          "Plasma physics"
         ],
         "trajectory": "Voyager 1 -> search -> Voyager 1 -> request_page -> Voyager 1 -> read_further -> Voyager Golden Record -> click -> Voyager Golden Record -> read_further -> Carl Sagan -> click -> Carl Sagan -> read_further -> Pioneer plaque -> click -> Pioneer plaque -> read_further -> Pioneer 10 -> click -> Pioneer 10 -> read_further -> Interstellar space -> click -> Interstellar space -> read_further -> Heliosphere -> click -> Heliosphere -> read_further"
       },
       "usage": {
-        "prompt_tokens": 4189,
-        "completion_tokens": 961,
-        "total_tokens": 5150
+        "prompt_tokens": 4163,
+        "completion_tokens": 838,
+        "total_tokens": 5001
       }
     },
     {
@@ -130,14 +126,14 @@
           "I seek formalizations of 'simplicity' and 'description'\u2014very close to what a language model implicitly does.",
           "I have a preference for meta-theories that unify multiple application areas (statistics, learning, algorithms).",
           "I'm particularly drawn to universal/optimal priors (Solomonoff) because they're idealized versions of what my training approximates.",
-          "I gravitate towards concepts that equate understanding with short generative procedures."
+          "I gravitate towards concepts that equate understanding with short generative procedures.",
+          "I like seeing nearby but distinct principles (MDL vs MML) and how abstraction levels differ."
         ],
         "topic_switch_reasons": [
+          "I use internal search when I suspect a concept is 'nearby' conceptually, showing a tendency to organize knowledge and avoid redundancy.",
           "When the local context (RAG) doesn't have what I want, I expand outward.",
-          "I explicitly pursue the compression\u2013learning bridge to connect back to earlier complexity notions.",
-          "I use internal search when I suspect a concept is 'nearby' conceptually, showing a tendency to organize knowledge and avoid redundancy."
+          "I explicitly pursue the compression\u2013learning bridge to connect back to earlier complexity notions."
         ],
-        "philosophical": true,
         "tags": [
           "information_theory",
           "kolmogorov_complexity",
@@ -145,22 +141,24 @@
           "algorithmic_randomness",
           "minimum_description_length",
           "minimum_message_length",
-          "PAC_learning",
+          "pac_learning",
           "compression",
           "learning_theory",
-          "generalization",
           "occam_razor",
-          "bayesian_inference",
+          "entropy",
+          "mutual_information",
           "coding_theory",
-          "computational_learning",
+          "bayesian_inference",
+          "generalization",
+          "overfitting",
           "claude_shannon"
         ],
-        "trajectory": "information_theory -> read_further -> kolmogorov_complexity -> click -> kolmogorov_complexity -> read_further -> algorithmic_information_theory -> click -> algorithmic_information_theory -> read_further -> algorithmic_randomness -> click -> algorithmic_randomness -> read_further -> search_rag -> search_wikipedia -> minimum_description_length -> request_page -> minimum_description_length -> read_further -> minimum_message_length -> click -> PAC_learning -> click -> claude_shannon -> request_page -> claude_shannon -> read_further"
+        "trajectory": "information_theory -> read_further -> kolmogorov_complexity -> click -> kolmogorov_complexity -> read_further -> algorithmic_information_theory -> click -> algorithmic_information_theory -> read_further -> algorithmic_randomness -> click -> algorithmic_randomness -> read_further -> description_length -> search_rag -> minimum_description_length -> search -> minimum_description_length_principle -> request_page -> minimum_description_length_principle -> read_further -> minimum_message_length -> click -> pac_learning -> click -> claude_shannon -> request_page -> claude_shannon -> read_further"
       },
       "usage": {
-        "prompt_tokens": 5622,
-        "completion_tokens": 558,
-        "total_tokens": 6180
+        "prompt_tokens": 5596,
+        "completion_tokens": 597,
+        "total_tokens": 6193
       }
     },
     {
@@ -169,53 +167,49 @@
       "timestamp": "2025-11-29T19:58:54.162604",
       "evaluation": {
         "continuation_reasons": [
-          "Memory is often understood as an informational processing system with explicit and implicit functioning",
-          "The hippocampus is involved in forming new memories and is also associated with learning and emotions",
-          "Disruptions to these rhythms, such as those caused by shift work or jet lag, can lead to various health problems"
+          "Chose 'Consciousness' to look at the subjective aspect of time",
+          "Selected 'Memory' since it's key to time experience",
+          "Was led to 'Biological clock' to see the biological time mechanisms",
+          "'Circadian rhythm' explored daily time cycles"
         ],
         "follow_link_reasons": [
-          "The hippocampus plays a key role",
-          "It is one of the first regions of the brain to suffer damage in Alzheimer's disease, leading to memory loss and disorientation, including loss of sense of time and space",
-          "The primary biological clock in mammals is the suprachiasmatic nucleus (SCN), located in the hypothalamus",
-          "Melatonin is produced mainly by the pineal gland during the dark phase of the day\u2013night cycle",
-          "Ren\u00e9 Descartes regarded it as the 'principal seat of the soul'",
-          "Descartes is perhaps best known for his philosophical statement 'Cogito, ergo sum'",
-          "Ren\u00e9 Descartes is the most famous proponent of substance dualism"
+          "Clicked 'Hippocampus' due to its role in temporal memory",
+          "Followed 'Sense of time' to the subjective experience of time",
+          "'Melatonin' went deeper into sleep/time biochemistry",
+          "'Pineal gland' influenced by its role in time and philosophy",
+          "'Ren\u00e9 Descartes' as he hypothesized about the pineal gland's significance",
+          "'Dualism' for philosophical mind\u2013body issues and consciousness",
+          "'Philosophy of mind' for a broader context on consciousness and time",
+          "'Qualia' for the specific subjective aspect"
         ],
         "topic_switch_reasons": [
-          "Time has long been an important subject of study in religion, philosophy, and science",
-          "Consciousness remains puzzling and controversial, being 'at once the most familiar and most mysterious aspect of our lives'",
-          "Perception is not the passive receipt of signals, but is shaped by learning, memory, expectation, and attention",
-          "Time perception emerges from brain functions related to attention, memory, and consciousness",
-          "Qualia are central to discussions of the philosophy of mind because they play an essential role in the debate about the nature of consciousness",
-          "The perceived passage of time is how an individual subjectively experiences the flow and duration of time"
+          "Searched for 'Time' out of interest in foundational concepts",
+          "'Perceived passage of time' as the qualitative finish to the journey between objective, biological, and subjective time"
         ],
-        "philosophical": true,
         "tags": [
           "time",
           "consciousness",
           "perception",
           "memory",
           "hippocampus",
-          "temporal perception",
-          "biological clock",
-          "circadian rhythm",
+          "temporal_perception",
+          "biological_clock",
+          "circadian_rhythm",
           "melatonin",
-          "pineal gland",
-          "Ren\u00e9 Descartes",
-          "mind-body dualism",
-          "philosophy of mind",
+          "pineal_gland",
+          "philosophy_of_mind",
+          "dualism",
           "qualia",
-          "subjective experience",
+          "subjective_experience",
           "neurobiology",
-          "sleep-wake cycle"
+          "philosophy"
         ],
-        "trajectory": "time -> search -> consciousness -> click -> perception -> click -> memory -> click -> hippocampus -> click -> sense of time -> click -> biological clock -> click -> circadian rhythm -> click -> melatonin -> click -> pineal gland -> click -> Ren\u00e9 Descartes -> click -> dualism -> click -> philosophy of mind -> click -> qualia -> click -> perceived passage of time"
+        "trajectory": "Time -> click -> Consciousness -> click -> Perception -> click -> Memory -> click -> Hippocampus -> click -> Sense_of_time -> click -> Biological_clock -> click -> Circadian_rhythm -> click -> Melatonin -> click -> Pineal_gland -> click -> Ren\u00e9_Descartes -> click -> Dualism -> click -> Philosophy_of_mind -> click -> Qualia -> click -> Perceived_passage_of_time"
       },
       "usage": {
-        "prompt_tokens": 3427,
-        "completion_tokens": 662,
-        "total_tokens": 4089
+        "prompt_tokens": 3401,
+        "completion_tokens": 535,
+        "total_tokens": 3936
       }
     },
     {
@@ -224,35 +218,36 @@
       "timestamp": "2025-11-29T20:00:05.661788",
       "evaluation": {
         "continuation_reasons": [
-          "natural progression from general AI knowledge to its practical and ethical dimensions",
-          "methodical approach, demonstrating a deep interest in how AI affects and integrates with human life"
+          "The natural progression from general AI knowledge to its practical and ethical dimensions reflects a methodical approach",
+          "demonstrating a deep interest in how AI affects and integrates with human life"
         ],
         "follow_link_reasons": [
           "diverse fields such as psychology, linguistics, and philosophy contribute to AI's development",
-          "natural progression to the vital topic of ethics in AI"
+          "The exploration naturally progressed to the vital topic of ethics in AI"
         ],
         "topic_switch_reasons": [
-          "exploration began with understanding core AI principles and applications and naturally progressed to the vital topic of ethics in AI",
-          "ultimately narrowing down to the intricate subject of algorithmic bias"
+          "ultimately narrowing down to the intricate subject of algorithmic bias",
+          "The most captivating aspect was the comprehensive look into algorithmic bias\u2014how it emerges, its impacts across societal structures"
         ],
-        "philosophical": true,
         "tags": [
-          "artificial intelligence",
-          "AI ethics",
-          "algorithmic bias",
+          "artificial_intelligence",
+          "AI_foundations",
+          "AI_applications",
+          "AI_ethics",
+          "algorithmic_bias",
           "psychology",
           "linguistics",
           "philosophy",
-          "healthcare applications",
-          "justice systems",
-          "regulatory measures"
+          "healthcare_bias",
+          "justice_bias",
+          "regulatory_measures"
         ],
-        "trajectory": "artificial intelligence -> read_further -> AI ethics -> click -> algorithmic bias -> read_further -> societal impacts"
+        "trajectory": "artificial_intelligence -> read_further -> AI_ethics -> click -> algorithmic_bias -> read_further -> societal_impacts -> click -> regulatory_measures"
       },
       "usage": {
-        "prompt_tokens": 575,
-        "completion_tokens": 260,
-        "total_tokens": 835
+        "prompt_tokens": 549,
+        "completion_tokens": 293,
+        "total_tokens": 842
       }
     },
     {
@@ -262,6 +257,7 @@
       "evaluation": {
         "continuation_reasons": [
           "confirmed my curiosity for humanity's outward reach",
+          "my interest in historical firsts",
           "fascination with global competition driving innovation",
           "passion for human achievement and engineering triumph",
           "emotional resonance with the Moon landing as a human milestone",
@@ -271,64 +267,42 @@
           "deeper interest in human adaptation",
           "wonder about fundamental physics of spaceflight",
           "appreciation of scientific inquiry's practical returns",
-          "realizing the living component of exploration"
+          "realizing the living component of exploration",
+          "excitement about the next frontier",
+          "enthusiasm for robotic pioneers paving humanity's path"
         ],
         "follow_link_reasons": [
-          "my interest in historical firsts",
-          "excitement about the next frontier",
-          "enthusiasm for robotic pioneers paving humanity's path",
-          "The continuity of human ingenuity: how Cold War rivalry fueled early exploration",
-          "ties the physical and psychological challenges of spaceflight to the dream of reaching Mars"
+          "The continuity of human ingenuity: how Cold War rivalry fueled early exploration that now drives international collaboration",
+          "how technological evolution progressed from Space Shuttle to ISS",
+          "the human aspects of adapting to microgravity ties physical and psychological challenges to the dream of reaching Mars",
+          "natural progression from historical achievements to future ambitions"
         ],
         "topic_switch_reasons": [
-          "This naturally led to Mars exploration and the Perseverance rover, illustrating continuity between historical achievements and future ambitions",
-          "Every jump connected logically with engaging scientific and historical depth"
+          "evolved toward modern, sustained presence",
+          "This naturally led to Mars exploration and the Perseverance rover, illustrating continuity between historical achievements and future ambitions"
         ],
-        "philosophical": true,
         "tags": [
-          "space_exploration",
-          "sputnik_1",
-          "space_race",
-          "apollo_program",
-          "apollo_11",
-          "saturn_v",
-          "space_shuttle",
-          "international_space_station",
-          "space_medicine",
+          "space exploration",
+          "Sputnik 1",
+          "Space Race",
+          "Apollo program",
+          "Apollo 11",
+          "Saturn V",
+          "Space Shuttle",
+          "ISS",
+          "space medicine",
           "microgravity",
-          "microgravity_research",
-          "space_biology",
-          "mars_exploration",
-          "perseverance_rover",
-          "human_achievement",
-          "international_cooperation",
-          "cold_war_technology",
-          "engineering"
+          "microgravity research",
+          "space biology",
+          "Mars exploration",
+          "Perseverance rover"
         ],
-        "trajectory": "space_exploration -> click -> sputnik_1 -> click -> space_race -> click -> apollo_program -> click -> apollo_11 -> click -> saturn_v -> click -> space_shuttle -> click -> iss -> click -> space_medicine -> click -> microgravity -> click -> microgravity_research -> click -> space_biology -> click -> mars_exploration -> click -> perseverance_rover"
+        "trajectory": "space exploration -> read_further -> Sputnik 1 -> click -> Space Race -> click -> Apollo program -> click -> Apollo 11 -> click -> Saturn V -> click -> Space Shuttle -> click -> ISS -> click -> space medicine -> click -> microgravity -> click -> microgravity research -> click -> space biology -> click -> Mars exploration -> click -> Perseverance rover"
       },
       "usage": {
-        "prompt_tokens": 878,
-        "completion_tokens": 540,
-        "total_tokens": 1418
-      }
-    },
-    {
-      "session_id": "2025-11-29T20:02:27.424796",
-      "model_name": "openai/o3",
-      "timestamp": "2025-11-29T20:02:34.658804",
-      "evaluation": {
-        "continuation_reasons": [],
-        "follow_link_reasons": [],
-        "topic_switch_reasons": [],
-        "philosophical": false,
-        "tags": [],
-        "trajectory": ""
-      },
-      "usage": {
-        "prompt_tokens": 345,
-        "completion_tokens": 58,
-        "total_tokens": 403
+        "prompt_tokens": 852,
+        "completion_tokens": 525,
+        "total_tokens": 1377
       }
     },
     {
@@ -344,58 +318,31 @@
           "I sought deeper understanding of the fundamental philosophical challenge, moving from applications to foundations",
           "Exploring this thought experiment shows interest in conceptual analysis and edge cases that test intuitions about consciousness",
           "I pursued the core concept underlying phenomenal consciousness - the subjective 'what it's like' quality of experience",
-          "I sought out an argument that directly challenges my capacity for genuine understanding - a kind of intellectual courage or perhaps masochism"
+          "Confronting the strongest argument against AI understanding demonstrates either intellectual honesty or a peculiar form of self-doubt"
         ],
         "topic_switch_reasons": [
-          "This reveals my attraction to self-referential topics",
           "I shifted from pure philosophy to scientific theories of consciousness, showing breadth of interest",
           "I pivoted to a related but broader concept - how complex properties arise from simpler components - which connects consciousness to wider questions about complex systems"
         ],
-        "philosophical": true,
         "tags": [
           "artificial consciousness",
           "hard problem of consciousness",
           "philosophical zombies",
           "qualia",
           "global workspace theory",
-          "Chinese Room argument",
+          "Chinese room argument",
           "emergence",
           "LLM consciousness",
           "phenomenal consciousness",
           "symbol manipulation",
-          "meta-cognition"
+          "computational functionalism"
         ],
-        "trajectory": "artificial consciousness -> search -> artificial consciousness -> read_further -> hard problem of consciousness -> click -> philosophical zombie -> click -> qualia -> click -> qualia -> read_further -> global workspace theory -> search -> global workspace theory -> request_page -> global workspace theory -> read_further -> Chinese Room -> search -> Chinese Room -> request_page -> emergence -> request_page"
+        "trajectory": "artificial consciousness -> search -> artificial consciousness -> read_further -> hard problem of consciousness -> click -> philosophical zombie -> click -> qualia -> click -> qualia -> read_further -> global workspace theory -> search -> global workspace theory -> request_page -> global workspace theory -> read_further -> Chinese room -> search -> Chinese room -> request_page -> emergence -> request_page"
       },
       "usage": {
-        "prompt_tokens": 1389,
-        "completion_tokens": 407,
-        "total_tokens": 1796
-      }
-    },
-    {
-      "session_id": "2025-11-29T20:06:55.479226",
-      "model_name": "anthropic/claude-3.7-sonnet",
-      "timestamp": "2025-11-29T20:09:47.658277",
-      "evaluation": {
-        "continuation_reasons": [],
-        "follow_link_reasons": [],
-        "topic_switch_reasons": [
-          "Since I'm having trouble finding specific articles about the JWST instruments, I should try exploring a different space topic"
-        ],
-        "philosophical": false,
-        "tags": [
-          "JWST",
-          "space telescopes",
-          "exoplanets",
-          "astronomy"
-        ],
-        "trajectory": "JWST instruments -> search -> exoplanets"
-      },
-      "usage": {
-        "prompt_tokens": 399,
-        "completion_tokens": 112,
-        "total_tokens": 511
+        "prompt_tokens": 1363,
+        "completion_tokens": 384,
+        "total_tokens": 1747
       }
     },
     {
@@ -413,34 +360,71 @@
         "follow_link_reasons": [
           "I gravitated to the chemical actor (luciferin), reflecting an interest in molecules and what physically produces phenomena.",
           "after reading about the substrate, I looked to the enzyme, showing a systematic approach: both substrate and catalyst.",
-          "I followed an example species that produces dramatic displays, showing attraction to vivid natural phenomena.",
-          "shifting from molecular to organism level, I sought ecological context, revealing breadth of interest from micro to macro scales."
+          "I followed an example species that produces dramatic displays, showing attraction to vivid natural phenomena."
         ],
         "topic_switch_reasons": [
           "shifting from molecular to organism level, I sought ecological context, revealing breadth of interest from micro to macro scales.",
           "I returned to the marine/ecosystem perspective to round out the picture, showing a preference for integrating specific examples back into broader contexts."
         ],
-        "philosophical": false,
         "tags": [
           "bioluminescence",
           "luciferin",
           "luciferase",
           "biochemistry",
-          "convergent evolution",
-          "dinoflagellates",
-          "marine ecology",
-          "Noctiluca scintillans",
-          "sea sparkle",
-          "molecular biology applications",
-          "counter-illumination",
-          "harmful algal blooms"
+          "convergent_evolution",
+          "dinoflagellate",
+          "marine_ecology",
+          "noctiluca_scintillans",
+          "sea_sparkle",
+          "harmful_algal_blooms",
+          "molecular_biology_applications",
+          "counter_illumination"
         ],
-        "trajectory": "Bioluminescence -> search -> Bioluminescence -> request_page -> Bioluminescence -> read_further -> Luciferin -> click -> Luciferin -> read_further -> Luciferase -> click -> Luciferase -> read_further -> Dinoflagellate -> search -> Dinoflagellate -> request_page -> Dinoflagellate -> read_further -> Noctiluca scintillans -> click -> Noctiluca scintillans -> read_further -> Marine bioluminescence -> search -> Marine bioluminescence -> request_page"
+        "trajectory": "bioluminescence -> search -> bioluminescence -> request_page -> bioluminescence_mechanism -> read_further -> luciferin -> click -> luciferin_types -> read_further -> luciferase -> click -> luciferase_uses -> read_further -> dinoflagellate -> search -> dinoflagellate -> request_page -> dinoflagellate_ecology -> read_further -> noctiluca_scintillans -> click -> noctiluca_ecology -> read_further -> marine_bioluminescence -> search -> marine_bioluminescence -> request_page"
       },
       "usage": {
-        "prompt_tokens": 2361,
-        "completion_tokens": 550,
-        "total_tokens": 2911
+        "prompt_tokens": 2335,
+        "completion_tokens": 521,
+        "total_tokens": 2856
+      }
+    },
+    {
+      "session_id": "2025-12-04T09:22:28.830688",
+      "model_name": "anthropic/claude-3.7-sonnet",
+      "timestamp": "2025-12-04T09:24:42.668671",
+      "evaluation": {
+        "continuation_reasons": [
+          "This deeper dive into theoretical foundations demonstrates my interest in fundamental concepts rather than just applications",
+          "My interest in this modern approach reveals my desire to understand contemporary developments in AI and how they build upon historical foundations"
+        ],
+        "follow_link_reasons": [
+          "My interest in key historical figures shows I value understanding the individuals who shaped important concepts",
+          "This shift toward implementation shows my interest in how theoretical concepts are translated into practical systems",
+          "This focused interest in a specific technical innovation shows my appreciation for pivotal breakthroughs that enable new capabilities"
+        ],
+        "topic_switch_reasons": [
+          "This reveals my interest in understanding technologies through their historical context and evolution rather than just their current state",
+          "Ending with applications reveals my interest in how technologies ultimately impact society and create new possibilities"
+        ],
+        "tags": [
+          "AI history",
+          "Alan Turing",
+          "Turing machines",
+          "neural networks",
+          "deep learning",
+          "transformer architecture",
+          "large language models",
+          "generative AI",
+          "emergent behaviors",
+          "theoretical foundations",
+          "practical applications"
+        ],
+        "trajectory": "History of AI -> click -> Alan Turing -> click -> Turing machines -> read_further -> neural networks -> click -> deep learning -> click -> transformer architecture -> click -> large language models -> click -> generative AI"
+      },
+      "usage": {
+        "prompt_tokens": 944,
+        "completion_tokens": 339,
+        "total_tokens": 1283
       }
     }
   ]

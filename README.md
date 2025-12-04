@@ -1,5 +1,6 @@
 # Intro
 
+
 The following project aims to investigate whether state-of-the-art large language models (LLMs), through self-directed activities, show signs of agency when engaged in (1) self-conversation and (2) Wikipedia browsing. In the self-conversation experiment, we study the topics explored to determine if model preferences are robust across generations and model providers. Then, for the browser experiment, we design an agency score inspired by previous work by [Long et al, Taking AI Welfare Seriously](https://arxiv.org/abs/2411.00986)  that measure expressions of goals, reflections and rationalization. Using this score we compare agency across model families and generations. Using these two experiments we show that models have 
 
 ![](./agency_analysis_full.png)
