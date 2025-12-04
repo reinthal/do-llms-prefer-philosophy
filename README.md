@@ -35,9 +35,14 @@ curl -fsSL https://claude.ai/install.sh | bash
 - Open a terminal to the repository root
 - Launch Claude code
 
-
 ```bash
 claude
+```
+
+This output shows that the application was installed correctly and that you are in the correct folder:
+
+```bash
+
  ▐▛███▜▌   Claude Code v2.0.42
 ▝▜█████▛▘  Sonnet 4.5 · Claude Pro
   ▘▘ ▝▝    /home/user/do-llms-prefer-philosophy
