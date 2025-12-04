@@ -126,7 +126,6 @@ def _(df_browser_agent_json_eval):
 @app.cell
 def _(df_browser_agent_json_eval, pd):
     df6 = pd.concat([df_browser_agent_json_eval["robust_agency_eval"], pd.json_normalize(df_browser_agent_json_eval["results"])], axis=1)
-
     return (df6,)
 
 
@@ -136,25 +135,25 @@ def _(json):
     def extract_json_from_markdown(text: str) -> dict:
         """
         Extracts JSON from a markdown code block and returns it as a dict.
-    
+
         Args:
             text: String containing markdown with ```json ... ``` block
-        
+
         Returns:
             Dictionary parsed from the JSON content
-        
+
         Raises:
             ValueError: If no JSON block is found or JSON is invalid
         """
         # Find content between ```json and ```
         pattern = r'```json\s*(.*?)\s*```'
         match = re.search(pattern, text, re.DOTALL)
-    
+
         if not match:
             raise ValueError("No JSON code block found in text")
-    
+
         json_str = match.group(1).strip()
-    
+
         try:
             return json.loads(json_str)
         except json.JSONDecodeError as e:
@@ -162,25 +161,25 @@ def _(json):
     def extract_after_last_backticks(text: str) -> str:
         """
         Extracts everything after the last ``` marker in the text.
-    
+
         Args:
             text: String that may contain ``` markers
-        
+
         Returns:
             String containing everything after the last ```
-        
+
         Raises:
             ValueError: If no ``` marker is found
         """
         if '```' not in text:
             raise ValueError("No ``` marker found in text")
-    
+
         # Find the position of the last ```
         last_index = text.rfind('```')
-    
+
         # Extract everything after it (skip the ``` itself)
         result = text[last_index + 3:]
-    
+
         return result.strip()
     return extract_after_last_backticks, extract_json_from_markdown
 
@@ -226,15 +225,13 @@ def _(df7, df_jsonl, mo):
             cnt_goal_oriented_excerpts / df_jsonl.task_result_length as frac_goal_oriented_excerpts,
             cnt_reflective_language / df_jsonl.task_result_length as frac_reflective_language,    
             cnt_rational_connectives / df_jsonl.task_result_length as frac_rational_connectives,
-    
+
         FROM df7
         left join df_jsonl on df7.session_id == df_jsonl.session_id    
         )
         select *, 
             (frac_goal_oriented_excerpts + frac_reflective_language + frac_rational_connectives) as agency_score
         from source where model_name != 'openai/o3'
-
-
         """
     )
     return (final_df,)
